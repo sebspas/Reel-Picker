@@ -22,14 +22,13 @@ $loader = new Twig_Loader_Filesystem(ROOT . APP . 'view/');
 $twig = new Twig_Environment($loader);
 
 // redirection selon la page dans l'url
-if (!empty($_GET['page']) && is_file(Config::$path['controller'].$_GET['page'].'.php') && isset($_SESSION['login'])) {
-	if ($_GET['page'] == 'login') {
-		require_once Config::$path['controller'] . 'home.php';
-	} else {
+if (isset($_SESSION['login'])) {
+	if (!empty($_GET['page']) && is_file(Config::$path['controller'].$_GET['page'].'.php') && $_GET['page'] != 'login') {
 		require_once Config::$path['controller'] . $_GET['page'].'.php';
+	} else {
+		require_once Config::$path['controller'] . 'home.php';
 	}
-}
-else {
+} else {
 	require_once Config::$path['controller'] . 'login.php';
 }
 

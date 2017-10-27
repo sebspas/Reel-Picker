@@ -17,24 +17,77 @@ body {
     background-color: #282828;
     background-image: url("../images/floral-bg.jpg");
     font-family: 'PT Serif';
+    color: white;
 }
 
-/*
+/*****
     NAVBAR
-*/
+*****/
 .nav-extended {
     background-color: black;
+    background-image: url("../images/strip-motif.png");
+}
+
+.nav-content{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-height: 200px;
 }
 
 .tabs {
-    
+    color: #434343;
+    margin-left: 750px;
+}
+.tabs .tab a {
+    font-size: 30px;
+    color: #434343;
+    width: 200px;
+    text-transform: lowercase;
+  }
+.tabs.tabs-transparent .tab a.active {
+    color: #45B3BF;
+}
+.tabs.tabs-transparent .indicator {
+    background-color: #45B3BF;
+}
+
+/*****
+    SPAN (for profile)
+*****/
+span.badge.new {
+    color: #000;
+    background-color: #D92579;
+    border-radius: 10px;
+}
+
+/*****
+    LOGO
+*****/
+#logo-text {
+    display: inline-block;
+    color: #45B3BF;
+    font-family: 'Broadway';
+    font-size: 70px;
+    margin-left: 60px;
+}
+
+#logo-img {
+    width: 150%;
+    margin-left: 10px;
+}
+
+
+/*****
+    SERACH OPTIONS
+*****/
+.collapsible {
+    color: #000;
+    font-size: 15px;
 }
 
 /*
-    LOGO
-*/
-.logo {
-    color: #45B3BF;
-    font-family: 'Broadway';
-    font-size: 50px;
+.collapsible-header {
+    background-color: #45B3BF;
 }
+*/

@@ -16,5 +16,5 @@
             $error = "Nom d'utilisateur ou mot de passe incorrect. Merci de reessayer.";
     }
 
-    echo $twig->render('login.twig', array('error' => $error));
+    echo $twig->render('login.twig', array('connected' => 'False', 'error' => $error));
 ?>
