@@ -1,0 +1,40 @@
+/*****
+    GENERAL
+*****/
+.style-background {
+    background-color: #282828;
+}
+
+.style-blue {
+    color: #45B3BF;
+}
+
+.style-fushia {
+    color: #D92579;
+}
+
+body {
+    background-color: #282828;
+    background-image: url("../images/floral-bg.jpg");
+    font-family: 'PT Serif';
+}
+
+/*
+    NAVBAR
+*/
+.nav-extended {
+    background-color: black;
+}
+
+.tabs {
+    
+}
+
+/*
+    LOGO
+*/
+.logo {
+    color: #45B3BF;
+    font-family: 'Broadway';
+    font-size: 50px;
+}

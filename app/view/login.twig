@@ -1,0 +1,29 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+<div class="row">
+    <h1>Login</h1>
+    <form class="col s12" action="index.php?page=login" method="post">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="pseudo" type="text" class="validate" name="pseudo" value="{{
+          request.form.username }}">
+                <label for="pseudo">Pseudo</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate" name="password" value="{{
+          request.form.password }}">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <input class="btn btn-default" type="submit" name="login" value="Login">
+        </div>
+    </form>
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }} </p>
+    {% endif %}
+</div>
+{% endblock %}
