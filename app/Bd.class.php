@@ -23,7 +23,7 @@ class BD {
         if (self::$db == null) {
             try {
                 self::$db = new PDO(Config::$dbInfo['driver'], Config::$dbInfo['username'], Config::$dbInfo['password']);
-                self::$db->exec('SET CHARACTER SET utf16');
+                self::$db->exec('SET CHARACTER SET utf8');
                 if(Config::$debug) 
                     self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
             } catch(Exception $e) {
@@ -212,19 +212,6 @@ class BD {
         return $donnees;
     } // selectAll()
 
-    function selectAmis($iduser) {
-        $req = self::$db->prepare("SELECT A1.iduser2 FROM amis A1
-                            WHERE A1.iduser1 = ? AND A1.iduser1 IN ( SELECT A2.iduser2
-                                                                     FROM amis A2
-                                                                     WHERE A2.iduser2 = ? ) ");
-        $req->execute(array($iduser,$iduser));
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
-    }
     /**
      * Function selectMult()
      *
@@ -295,122 +282,6 @@ class BD {
         $req->closeCursor();
     } // addUser()
 
-
-    function addSection($Nom,$couleur,$image,$desc) {
-        $req = self::$db->prepare("INSERT INTO `section` 
-            (nom, couleur, image, description)
-            VALUES (?,?,?,?)");
-        $req->execute(array($Nom,$couleur,$image,$desc));
-
-        $req->closeCursor();
-    }
-
-    function addNews($Nom,$image,$jeux,$desc) {
-        $req = self::$db->prepare("INSERT INTO `news` 
-            (titre,`text`, image, `date`, idauteur, idjeux)
-            VALUES (?,?,?,?,?,?)");
-        $req->execute(array($Nom,$desc,$image,date('y/m/d H:i:s'),$_SESSION['iduser'],$jeux));
-
-        $req->closeCursor();
-    }
-
-    function addEvent($nom,$type,$date,$localisation,$image,$jeux,$desc) {
-        $req = self::$db->prepare("INSERT INTO `event` 
-            (nom,type,`desc`,image,localisation,`date`,idorganisateur,idjeux)
-            VALUES (?,?,?,?,?,?,?,?)");
-        $req->execute(array($nom,$type,$desc,$image,$localisation,$date,$_SESSION['iduser'],$jeux));
-
-        $req->closeCursor();
-    }
-
-    function addJoueur($idjeux,$iduser) {
-        $req = self::$db->prepare("INSERT INTO `joueur` 
-            (idjeux, iduser)
-            VALUES (?,?)");
-        $req->execute(array($idjeux,$iduser));
-
-        $req->closeCursor();
-    }
-
-    function addParticipant($idevent,$iduser) {
-        $req = self::$db->prepare("INSERT INTO `participant` 
-            (idevent, iduser)
-            VALUES (?,?)");
-        $req->execute(array($idevent,$iduser));
-
-        $req->closeCursor();
-    }
-
-    function addAmis($iduser,$iduser2) {
-        $req = self::$db->prepare("INSERT INTO `amis` 
-            (iduser1, iduser2)
-            VALUES (?,?)");
-        $req->execute(array($iduser,$iduser2));
-
-        $req->closeCursor();
-    }
-
-    function addCom($texte,$idnews) {
-        $req = self::$db->prepare("INSERT INTO `commentaire` 
-            (`date`, texte, iduser, idnews)
-            VALUES (?,?,?,?)");
-        $req->execute(array(date('y/m/d H:i:s'),$texte,$_SESSION['iduser'],$idnews));
-
-        $req->closeCursor();
-    }
-    function addCategorie($nom) {
-        $req = self::$db->prepare("INSERT INTO `categorie` 
-            (nom)
-            VALUES (?)");
-        $req->execute(array($nom));
-
-        $req->closeCursor();
-    }
-
-    function addForum($nom, $desc, $idcategorie = null, $idpere = null) {
-        $req = self::$db->prepare("INSERT INTO `forum` 
-            (nom, description, idpere, idcategorie)
-            VALUES (?,?,?,?)");
-        $req->execute(array($nom, $desc, $idpere, $idcategorie));
-
-        $req->closeCursor();
-    }
-    
-    function addRep($message, $idtopic) {
-        $req = self::$db->prepare("INSERT INTO `message` 
-            (`message`, `timestamp`, `iduser`, `idtopic`)
-            VALUES (?,?,?,?)");
-        $req->execute(array($message, time(), $_SESSION['iduser'], $idtopic));
-
-        $req->closeCursor();
-    }
-
-    function addTopic($nom, $texte, $idforum) {
-        $req = self::$db->prepare("INSERT INTO `topic` 
-            (`nom`, `message`, `timestamp`, `iduser`, `forum_idForum`)
-            VALUES (?,?,?,?,?)");
-        $req->execute(array($nom, $texte, time(), $_SESSION['iduser'], $idforum));
-
-        $req->closeCursor();
-    }
-
-    function addMessage($nom, $file) {
-        $req = self::$db->prepare("INSERT INTO `messagerie` 
-            (`link`, `idauteur`, `iddestinataire`, `timestamp`)
-            VALUES (?,?,?,?)");
-        $req->execute(array($file, $_SESSION['iduser'], $nom, time()));
-
-        $req->closeCursor();
-    }
-
-    function addMessageInTchat($pseudo,$message) {
-        $req = self::$db->prepare("INSERT INTO `tchat` 
-            (`auteur`, `message`, `timestamp`)
-            VALUES (?,?,?)");
-        $req->execute(array($pseudo,$message,time()));
-
-        $req->closeCursor();
-    }
     /**
      * Function update()
      *
@@ -513,43 +384,6 @@ class BD {
             return false;
         }
     } // isInDb()
-
-    function checkMsgAuteur() {
-        $req = self::$db->prepare("SELECT COUNT(*) as nbr FROM messagerie m1, messagerie m2 
-                                    WHERE m1.idauteur = ? 
-                                    AND m2.luAuteur = 1 
-                                    AND m2.idmessage = m1.idmessage");
-        $req->execute(array($_SESSION['iduser']));
-        $donnees = $req->fetch(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees->nbr;
-    }
-
-    function checkMsgDestinataire() {
-        $req = self::$db->prepare("SELECT COUNT(*) as nbr FROM messagerie m1, messagerie m2 
-                                    WHERE m1.iddestinataire = ? 
-                                    AND m2.luDestinataire = 1 
-                                    AND m2.idmessage = m1.idmessage");
-        $req->execute(array($_SESSION['iduser']));
-        $donnees = $req->fetch(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees->nbr;
-    }
-
-    function recupTchat($lastid) {
-        $req = self::$db->prepare("SELECT * FROM tchat WHERE id > ? ORDER BY `timestamp` ASC");
-        
-        $req->execute(array($lastid));
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
-    }
 } // class bd()
 
 ?>
