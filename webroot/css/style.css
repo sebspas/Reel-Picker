@@ -79,23 +79,17 @@ body {
     font-size: 20px;
 }
 
-
-/*.tabs {
-    color: #434343;
-    margin-left: 650px;
-}
-.tabs .tab a {
-    font-size: 30px;
-    color: #434343;
-    width: 200px;
-    text-transform: lowercase;
-  }
-.tabs.tabs-transparent .tab a.active {
+.navbar-reel :active {
     color: #45B3BF;
 }
-.tabs.tabs-transparent .indicator {
+
+nav ul li.active a {
+    color: #45B3BF;
+}
+
+.side-nav {
     background-color: #45B3BF;
-}*/
+}
 
 /*****
     SPAN (for profile)
@@ -124,9 +118,3 @@ span.badge.new {
     color: #000;
     font-size: 15px;
 }
-
-/*
-.collapsible-header {
-    background-color: #45B3BF;
-}
-*/
