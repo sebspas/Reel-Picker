@@ -79,17 +79,26 @@ body {
     font-size: 20px;
 }
 
-.navbar-reel :active {
-    color: #45B3BF;
-}
-
 nav ul li.active a {
     color: #45B3BF;
 }
 
-.side-nav {
-    background-color: #45B3BF;
+nav ul li.active a i {
+    color: #45B3BF;
 }
+
+.side-nav {
+    background-color: #282828; 
+}
+
+.side-nav li>a {
+    color: #fff;
+}
+
+.side-nav li>a>i {
+    color: #fff;
+}
+
 
 /*****
     SPAN (for profile)
@@ -117,4 +126,49 @@ span.badge.new {
 .collapsible {
     color: #000;
     font-size: 15px;
+}
+
+/*****
+    PROFILE
+*****/
+.divider {
+    background-color: #45B3BF;
+    margin-bottom: 10px;
+}
+
+.chip {
+    color: #fff;
+    background-color: #D92579;
+}
+
+/*****
+    MOVIE HOME
+*****/
+@media only screen and (min-width: 993px) {
+    .container-movie {
+        -moz-column-count: 4;
+        -moz-column-gap: 10px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 10px;
+        column-count: 4;
+        column-gap: 10px;
+        width: 100%;
+    }    
+}
+
+@media only screen and (max-width: 500px) {
+    .container-movie {
+        -moz-column-count: 1;
+        -moz-column-gap: 10px;
+        -webkit-column-count: 1;
+        -webkit-column-gap: 10px;
+        column-count: 1;
+        column-gap: 10px;
+        width: 100%;
+    }
+}
+
+.container-movie div {
+    display: inline-block;
+    width: 100%;
 }
