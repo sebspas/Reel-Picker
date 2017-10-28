@@ -1,3 +1,4 @@
+$(".button-collapse").sideNav();
 var slider = document.getElementById('slider-duration');
 if (slider != null) {
   noUiSlider.create(slider, {

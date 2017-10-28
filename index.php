@@ -26,6 +26,7 @@ if (isset($_SESSION['login'])) {
 	if (!empty($_GET['page']) && is_file(Config::$path['controller'].$_GET['page'].'.php') && $_GET['page'] != 'login') {
 		require_once Config::$path['controller'] . $_GET['page'].'.php';
 	} else {
+		$_GET['page'] = 'home';
 		require_once Config::$path['controller'] . 'home.php';
 	}
 } else {

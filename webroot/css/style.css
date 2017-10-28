@@ -1,6 +1,48 @@
 /*****
     GENERAL
 *****/
+.fixed {
+    position: fixed;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.center {
+    margin: 0 auto;
+}
+
 .style-background {
     background-color: #282828;
 }
@@ -23,21 +65,24 @@ body {
 /*****
     NAVBAR
 *****/
-.nav-extended {
-    background-color: black;
-    background-image: url("../images/strip-motif.png");
+.navbar-reel {
+    background-color: #282828;
+    min-height: 85px;
+    /*background-image: url("../images/strip-motif.png");*/
 }
 
-.nav-content{
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    min-height: 200px;
+.nav-wrapper{
+    padding-top: 10px;
 }
 
-.tabs {
+.navbar-reel a {
+    font-size: 20px;
+}
+
+
+/*.tabs {
     color: #434343;
-    margin-left: 750px;
+    margin-left: 650px;
 }
 .tabs .tab a {
     font-size: 30px;
@@ -50,7 +95,7 @@ body {
 }
 .tabs.tabs-transparent .indicator {
     background-color: #45B3BF;
-}
+}*/
 
 /*****
     SPAN (for profile)
@@ -68,15 +113,9 @@ span.badge.new {
     display: inline-block;
     color: #45B3BF;
     font-family: 'Broadway';
-    font-size: 70px;
-    margin-left: 60px;
+    font-size: 50px;
+    margin-left: 40px;
 }
-
-#logo-img {
-    width: 150%;
-    margin-left: 10px;
-}
-
 
 /*****
     SERACH OPTIONS

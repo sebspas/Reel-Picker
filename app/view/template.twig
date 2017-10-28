@@ -12,6 +12,9 @@
     <!--Import style.css-->
     <link type="text/css" rel="stylesheet" href="webroot/css/style.css"
           media="screen,projection"/>
+    <!--Font Awesome Icons database-->
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          media="screen,projection"/>
 
 		  
     <!--Let browser know website is optimized for mobile-->
@@ -22,28 +25,31 @@
 
 <body>
     {% if connected == 'ok' %}
-    <nav class="nav-extended">
-            <div class="nav-content">
-                <a id="logo-text" href="index.php?page=home" "right brand-logo">ReelPicker</a>
-                <a href="index.php?page=home"><img id="logo-img" src="webroot/images/reel.png" alt="PickAReel"></a>
-
-                <ul class="tabs tabs-transparent">
-                  <li class="tab" {% if page == 'home' %}{{ attributes.addClass('active') }}{% endif %}><a target="_self" href="index.php?page=home">Home</a></li>
-                  <li class="tab" {% if page == 'search' %}{{ attributes.addClass('active') }}{% endif %}><a target="_self" href="index.php?page=search">Search</a></li>
-                  <li class="tab" {% if page == 'profile' %}{{ attributes.addClass('active') }}{% endif %}><a target="_self" href="index.php?page=profile">Profile<span class="new badge">2</span></a></li>
-                </ul>
-    
-            </div>
-          </nav>
-
-    {% else %}
-    <nav class="nav-extended">
-        <div class="nav-content">
-            <a id="logo-text" href="#home" "right brand-logo">ReelPicker</a>
-            <a href="#home"><img class="right" src="webroot/images/reel.png" alt="PickAReel"></a>
+    <nav class="navbar-reel">
+        <div class="nav-wrapper">
+            <a id="logo-text" href="index.php?page=home" class="left brand-logo">ReelPicker</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
+                <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
+                <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
+                <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
+                <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
+                <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
+                <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+            </ul>
         </div>
     </nav>
 
+    {% else %}
+    <nav class="navbar-reel">
+        <div class="nav-wrapper">
+            <a id="logo-text" href="index.php?page=home" "right brand-logo">ReelPicker</a>
+        </div>
+    </nav>
     {% endif %}
 
 <div class="container">
