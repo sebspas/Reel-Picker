@@ -172,3 +172,20 @@ span.badge.new {
     display: inline-block;
     width: 100%;
 }
+
+/*****
+    MOVIE DISPLAY
+*****/
+.movie-content {
+    min-height: 400px;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.movie-content p {
+    min-height: 200px;
+}
+
+.movie-image {
+    width: 100%;
+    margin: 1.5rem 0 1rem 0;
+}

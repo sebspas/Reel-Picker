@@ -262,6 +262,20 @@ class BD {
         return $donnees;
     } // selectTwoParam()
 
+
+    function selectMovieTag($idmovie) {
+        
+        $req = self::$db->prepare("SELECT * FROM `tag` WHERE `idtag` IN (SELECT `tag_idtag` FROM `movie_has_tag` WHERE `movie_idmovie` = ?) ORDER BY 'name' ASC");
+        
+        $req->execute(array($idmovie));
+
+        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
+
+        $req->closeCursor();
+
+        return $donnees;
+    }
+
     /**
      * Function addUser()
      *
