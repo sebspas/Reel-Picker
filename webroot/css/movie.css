@@ -1,0 +1,35 @@
+/*****
+    MOVIE DISPLAY
+*****/
+.movie-content {
+    min-height: 400px;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.movie-content p {
+    min-height: 200px;
+}
+
+.movie-image {
+    width: 100%;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.blue-grey.darken-1 {
+    background-color: rgb(40, 41, 38) !important;
+}
+
+.toast {
+    background-color: #45B3BF;
+    color: #000;
+}
+
+.back-button a {
+    margin-top: 20px;
+    margin-bottom: -5px;
+    background-color: #D92579 !important;
+}
+
+.back-button a:hover {
+    background-color: rgb(172, 33, 98);
+}

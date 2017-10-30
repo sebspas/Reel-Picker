@@ -1,6 +1,11 @@
 {% extends 'template.twig' %}
 
 {% block content %}
+    <div class="back-button">
+        <a href="index.php?page=home" class="waves-effect waves-dark btn">
+            <i class="fa fa-chevron-left left" aria-hidden="true">
+            </i>Back</a>
+    </div>
     <div class="row">
         <div class="col s12 m4">
             <img class="movie-image" src="{{ movie.img }}">
@@ -24,8 +29,8 @@
                     <p>{{ movie.desc }}</p>
                 </div>
                 <div class="card-action">
-                    <a class="right" href="#"><i class="fa fa-heart" aria-hidden="true"></i> I Love It</a>
-                    <a href="#"><i class="fa fa-thumbs-down" aria-hidden="true"></i> I Don't Like IT</a>
+                    <a class="right" onclick="Materialize.toast('Glad you liked it!', 1000)" href="#"><i class="fa fa-heart" aria-hidden="true"></i> I Love It</a>
+                    <a href="#" onclick="Materialize.toast('Sad to hear it...', 1000)"><i class="fa fa-thumbs-down" aria-hidden="true"></i> I Don't Like It</a>
                 </div>
             </div>
         </div>

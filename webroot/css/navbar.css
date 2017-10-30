@@ -1,0 +1,35 @@
+/*****
+    NAVBAR
+*****/
+.navbar-reel {
+    background-color: #282828;
+    min-height: 85px;
+}
+
+.nav-wrapper{
+    padding-top: 10px;
+}
+
+.navbar-reel a {
+    font-size: 20px;
+}
+
+nav ul li.active a {
+    color: #45B3BF;
+}
+
+nav ul li.active a i {
+    color: #45B3BF;
+}
+
+.side-nav {
+    background-color: #282828; 
+}
+
+.side-nav li>a {
+    color: #fff;
+}
+
+.side-nav li>a>i {
+    color: #fff;
+}
