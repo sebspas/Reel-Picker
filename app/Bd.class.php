@@ -287,12 +287,12 @@ class BD {
      * @param string $Mail L'adresse mail de l'utilisateur
      * @param string $Pass Le mot de passe non hasher
      */
-    function addUser($Pseudo,$Nom,$Prenom,$Sexe,$Mail,$Pass) {
-        $req = self::$db->prepare("INSERT INTO `user`
-            (pseudo, nom, prenom, sexe, mail, pass)
-             VALUES (?,?,?,?,?,?)");
+    function addUser($Pseudo,$Pass,$Mail) {
+        $req = self::$db->prepare("INSERT INTO `users`
+            (pseudo, password, email)
+             VALUES (?,?,?)");
         $Pass = sha1($Pass);
-        $req->execute(array($Pseudo,$Nom,$Prenom,$Sexe,$Mail,$Pass));
+        $req->execute(array($Pseudo,$Pass,$Mail));
         $req->closeCursor();
     } // addUser()
 

@@ -5,7 +5,7 @@
         if ($BD->isInDb("pseudo", $pseudo)) {
             $errors.push(sprintf("The username '%s' is already taken.", $pseudo));
         }
-        if ($BD->isInDb("mail", $email)) {
+        if ($BD->isInDb("email", $email)) {
             $errors.push(sprintf("The email '%s' has already been used.", $email));
         }
         if ($password != $passwordConfirm) {
@@ -13,7 +13,7 @@
         }
 
         if(sizeof($errors) == 0){
-            $BD->addUser($pseudo,"none","none","M",$email,$password);
+            $BD->addUser($pseudo,$password,$email);
         }
 
         return $errors;
