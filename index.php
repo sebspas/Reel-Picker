@@ -30,7 +30,11 @@ if (isset($_SESSION['login'])) {
 		require_once Config::$path['controller'] . 'home.php';
 	}
 } else {
-	require_once Config::$path['controller'] . 'login.php';
+	$loggedOutPages = ['login', 'register'];
+	if(!empty($_GET['page']) && in_array($_GET['page'], $loggedOutPages))
+		require_once Config::$path['controller'] . $_GET['page'].'.php';
+	else
+		require_once Config::$path['controller'] . 'login.php';
 }
 
 ?>

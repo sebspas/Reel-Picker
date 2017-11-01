@@ -13,7 +13,7 @@
         }
 
         if(sizeof($errors) == 0){
-            $BD->addUser($pseudo,"","","",$email,$password);
+            $BD->addUser($pseudo,"none","none","M",$email,$password);
         }
 
         return $errors;
