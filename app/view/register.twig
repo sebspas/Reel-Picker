@@ -1,0 +1,43 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="offset-s3 center block col s6">
+        <h1>Sign Up</h1>
+        <div class="divider"></div>
+        <form class="col s12" action="" method="post">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate" name="email" value="{{request.form.email}}">
+                    <label for="email">E-mail Address</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="pseudo" type="text" class="validate" name="username" value="{{request.form.username}}">
+                    <label for="pseudo">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" name="password" value="{{request.form.password}}">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate" name="passwordConfirm" value="{{request.form.passwordConfirm}}">
+                    <label for="password">Retype Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <input class="btn btn-default" type="submit" value="Sign Up">
+            </div>
+        </form>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }} </p>
+        {% endif %}
+        <p>Already a member? <a href="index.php?page=login">SIGN IN</a></p>
+    </div>
+</div>
+{% endblock %}
