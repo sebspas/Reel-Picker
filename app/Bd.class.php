@@ -276,6 +276,25 @@ class BD {
         return $donnees;
     }
 
+
+    function searchMovies($searchTerms) {
+        $query = "SELECT `name`, `idmovie` FROM `movie` WHERE %s";
+        $conditions = array();
+
+        for($i =0; $i < sizeof($searchTerms); $i++){
+            $query.push("`name` LIKE ?");
+            $searchTerms[i] = sprintf("\%%s\%", $searchTerms[i]);
+        }
+
+        $query = sprintf("SELECT `name`, `idmovie` FROM `movie` WHERE %s", join($conditions, " OR "));
+        $req = self::$db->prepare($query);
+        $req->execute($conditions);
+        $results = $req->fetchAll(PDO::FETCH_OBJ);
+        $req->closeCursor();
+
+        return $results;
+    }
+
     /**
      * Function addUser()
      *
