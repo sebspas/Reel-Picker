@@ -278,17 +278,17 @@ class BD {
 
 
     function searchMovies($searchTerms) {
-        $query = "SELECT `name`, `idmovie` FROM `movie` WHERE %s";
+        $query = "SELECT title, idmovie, img FROM $this->table WHERE %s";
         $conditions = array();
 
         for($i =0; $i < sizeof($searchTerms); $i++){
-            $query.push("`name` LIKE ?");
-            $searchTerms[i] = sprintf("\%%s\%", $searchTerms[i]);
+            array_push($conditions, "title LIKE ?");
+            $searchTerms[$i] = "%".$searchTerms[$i]."%";
         }
 
-        $query = sprintf("SELECT `name`, `idmovie` FROM `movie` WHERE %s", join($conditions, " OR "));
+        $query = sprintf($query, join($conditions, " OR "));
         $req = self::$db->prepare($query);
-        $req->execute($conditions);
+        $req->execute($searchTerms);
         $results = $req->fetchAll(PDO::FETCH_OBJ);
         $req->closeCursor();
 
