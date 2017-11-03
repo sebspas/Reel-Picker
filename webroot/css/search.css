@@ -2,7 +2,12 @@
     SERACH OPTIONS
 *****/
 .collapsible {
-    color: #000;
+    color: #fff;
+    font-size: 15px;
+}
+
+.collapsible-header {
+    background-color: #252525;
     font-size: 15px;
 }
 
@@ -24,9 +29,6 @@
         position: relative;
     }
 }
-
-
-
 
 .scroll-content {
     display: inline-block;

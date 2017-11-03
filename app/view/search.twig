@@ -6,13 +6,12 @@
         <form class="" method="post">
             <div class="input-field col s12">
                 <i class="material-icons prefix">search</i>
-                <input id="search-bar" type="search" class="validate" name="search" >
-                <label for="search-bar">Search by title...</label>
+                <input placeholder=" Search by title..." id="search-bar" type="search" class="validate" name="search" >
             </div>
         </form>
 
         <h4 >Filters</h4>
-            <ul class="collapsible" data-collapsible="accordion">
+            <ul class="collapsible" data-collapsible="expandable">
                 <li>
                     <div class="collapsible-header"><i class="material-icons">live_tv</i>Genre</div>
                     <div class="collapsible-body">
@@ -43,9 +42,13 @@
                 <li>
                     <div class="collapsible-header"><i class="material-icons">av_timer</i>Running Time</div>
                     <div class="collapsible-body">
-                        <span>
+                        <!--span>
                             <div id="slider-duration"></div>
-                        </span>
+                        </span-->
+                        <div class="range-field">
+                            <input type="range" id="test5" min="0" max="300" />
+                            Choose the maximum duration (minutes) of the movie.
+                        </div>
                     </div>
                 </li>
                 <li>

@@ -21,7 +21,9 @@
     <link type="text/css" rel="stylesheet" href="webroot/css/search.css"
           media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="webroot/css/profile.css"
-          media="screen,projection"/>     
+          media="screen,projection"/> 
+    <link type="text/css" rel="stylesheet" href="webroot/css/slider.css"
+          media="screen,projection"/>    
     <!--Font Awesome Icons database-->
     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           media="screen,projection"/>
@@ -38,7 +40,7 @@
     <div class="navbar-fixed">
         <nav class="navbar-reel">
             <div class="nav-wrapper">
-                <a id="logo-text" href="index.php?page=home" class="left brand-logo">ReelPicker</a>
+                <a id="logo-text" href="index.php?page=home" class="left brand-logo"></a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
@@ -59,7 +61,7 @@
     {% else %}
     <nav class="navbar-reel">
         <div class="nav-wrapper">
-            <a id="logo-text" href="index.php?page=home" "right brand-logo">ReelPicker</a>
+            <a id="logo-text" href="index.php?page=home" "right brand-logo"></a>
         </div>
     </nav>
     {% endif %}

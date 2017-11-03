@@ -79,9 +79,14 @@ span.badge.new {
     LOGO
 *****/
 #logo-text {
-    display: inline-block;
+    margin-left: 10px;
+    background-image: url("../images/RP_logo2.svg"), none;
+    background-size: cover;
+    width: 160px;
+    height: 70px;
+    /*display: inline-block;
     color: #45B3BF;
     font-family: 'Broadway';
     font-size: 50px;
-    margin-left: 40px;
+    margin-left: 40px;*/
 }
