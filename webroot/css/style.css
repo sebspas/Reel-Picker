@@ -62,6 +62,10 @@ body {
     color: white;
 }
 
+.container {
+    margin-top: 20px;
+}
+
 /*****
     SPAN (for profile)
 *****/

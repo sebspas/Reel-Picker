@@ -35,24 +35,26 @@
 
 <body>
     {% if connected == 'ok' %}
-    <nav class="navbar-reel">
-        <div class="nav-wrapper">
-            <a id="logo-text" href="index.php?page=home" class="left brand-logo">ReelPicker</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
-                <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
-                <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
-                <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-                <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
-                <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
-                <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
-                <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="navbar-fixed">
+        <nav class="navbar-reel">
+            <div class="nav-wrapper">
+                <a id="logo-text" href="index.php?page=home" class="left brand-logo">ReelPicker</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
+                    <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
+                    <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
+                    <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li class="{% if page == 'home' %}active{% endif %}"><a href="index.php?page=home"><i class="fa fa-film" aria-hidden="true"></i> Home</a></li>
+                    <li class="{% if page == 'search' %}active{% endif %}"><a href="index.php?page=search"><i class="fa fa-search" aria-hidden="true"></i> Search</a></li>
+                    <li class="{% if page == 'profile' %}active{% endif %}"><a href="index.php?page=profile"><i class="fa fa-user" aria-hidden="true"></i> Profile<span class="new badge">2</span></a></li>
+                    <li ><a href="index.php?page=logout"><i class="fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
     {% else %}
     <nav class="navbar-reel">
@@ -62,10 +64,8 @@
     </nav>
     {% endif %}
 
-<div class="container">
     {% block content %}
     {% endblock %}
-</div>
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

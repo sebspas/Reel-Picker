@@ -2,30 +2,32 @@
     MOVIE HOME
 *****/
 @media only screen and (min-width: 993px) {
+    
     .container-movie {
-        -moz-column-count: 4;
-        -moz-column-gap: 10px;
-        -webkit-column-count: 4;
-        -webkit-column-gap: 10px;
+  
         column-count: 4;
+        -webkit-column-count: 4;
         column-gap: 10px;
-        width: 100%;
-    }    
-}
-
-@media only screen and (max-width: 500px) {
-    .container-movie {
-        -moz-column-count: 1;
-        -moz-column-gap: 10px;
-        -webkit-column-count: 1;
         -webkit-column-gap: 10px;
-        column-count: 1;
-        column-gap: 10px;
         width: 100%;
     }
 }
 
-.container-movie div {
-    display: inline-block;
+@media only screen and (max-width: 500px) {
+    
+    .container-movie {
+  
+        column-count: 1;
+        -webkit-column-count: 1;
+        column-gap: 10px;
+        -webkit-column-gap: 10px;
+        width: 100%;
+    }
+}
+
+.card-movie {
+    display: block;
     width: 100%;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
 }
