@@ -189,6 +189,29 @@ class BD {
         return $donnees;
     } // selectAll()
 
+    function selectTop($orderatt, $quantity) {
+        if (isset($orderatt)) {
+            $req = self::$db->prepare("SELECT * FROM $this->table ORDER BY $orderatt DESC LIMIT $quantity"); 
+            $req->execute();
+
+            $donnees = $req->fetchAll(PDO::FETCH_OBJ);
+
+            $req->closeCursor();
+
+            return $donnees;
+        }
+
+        $req = self::$db->prepare("SELECT * FROM $this->table");
+
+        $req->execute();
+
+        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
+
+        $req->closeCursor();
+
+        return $donnees;
+    } // selectAll()
+
     function selectAllAsc($orderatt) {
         if (isset($orderatt)) {
             $req = self::$db->prepare("SELECT * FROM $this->table ORDER BY $orderatt ASC"); 

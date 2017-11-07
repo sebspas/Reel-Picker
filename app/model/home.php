@@ -1,6 +1,6 @@
 <?php
-    function GetMovies() {
+    function GetRecommandations($quantity) {
         $BD = new BD('movie');
-        return $BD->selectAll('title');
+        return $BD->selectTop('title', $quantity);
     }
 ?>
