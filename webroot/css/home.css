@@ -1,15 +1,37 @@
 /*****
     MOVIE HOME
 *****/
+body {
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+
+    flex: 1 0 auto;
+}
+
+.page-footer {
+
+    background-color: #282828;
+}
+
 @media only screen and (min-width: 993px) {
     
     .container-movie {
   
         column-count: 4;
         -webkit-column-count: 4;
-        column-gap: 10px;
-        -webkit-column-gap: 10px;
+        column-gap: 32px;
+        -webkit-column-gap: 32px;
         width: 100%;
+    }
+
+    .bottom-line {
+        
+        font-size: 32px;
     }
 }
 
