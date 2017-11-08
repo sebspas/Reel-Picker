@@ -29,10 +29,7 @@ main {
         width: 100%;
     }
 
-    .bottom-line {
-        
-        font-size: 32px;
-    }
+
 }
 
 @media only screen and (max-width: 500px) {
@@ -52,4 +49,9 @@ main {
     width: 100%;
     break-inside: avoid;
     -webkit-column-break-inside: avoid;
+}
+
+.bottom-line {
+    
+    font-size: 24px;
 }
