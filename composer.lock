@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2c94c05d9b67ff31b35b96a6db0b9d6",
+    "content-hash": "fb32aaa6544e19b80958fb778940e5c6",
     "packages": [
         {
             "name": "bordercloud/sparql",

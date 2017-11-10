@@ -1,0 +1,26 @@
+{% extends 'template.twig' %}
+
+{% block content %}
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+            {% for col in movie_col %}
+                <th>{{ col }}</th>
+            {% endfor %}
+            </tr>
+        </thead>      
+            
+        <tbody>
+            {% for data in movie_data %}
+            <tr>
+                {% for col in movie_col %}
+                    <th>{{ data[col] }}</th>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
