@@ -17,3 +17,8 @@ To have this project up and running, you first need some basic stuff.
 5. Aller dans wamp64/www/, cloner le repository git (git clone url)
 6. Dans un terminal 'php composer.phar install'
 
+
+# Update on requirements
+1. Select PHP 7 dans apache
+![alt text](https://i.stack.imgur.com/QGUCf.png)
+2. Do composer update
