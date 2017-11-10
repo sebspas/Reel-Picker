@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8200fdc327c8f464c044ad2cec359f8d",
+    "content-hash": "e2c94c05d9b67ff31b35b96a6db0b9d6",
     "packages": [
+        {
+            "name": "bordercloud/sparql",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BorderCloud/SPARQL.git",
+                "reference": "67d804cb03bdadc6a89b24689e09f692160d0921"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BorderCloud/SPARQL/zipball/67d804cb03bdadc6a89b24689e09f692160d0921",
+                "reference": "67d804cb03bdadc6a89b24689e09f692160d0921",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "evert/phpdoc-md": "^0.2.0@dev",
+                "michelf/php-markdown": "^1.7",
+                "phpdocumentor/phpdocumentor": "2.9.0@dev",
+                "phpunit/phpunit": "^6.3",
+                "twig/twig": "~1.3@dev"
+            },
+            "bin": [
+                "bin/query"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BorderCloud\\SPARQL\\": "src/",
+                    "BorderCloud\\SPARQL\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-4.0"
+            ],
+            "authors": [
+                {
+                    "name": "Karima Rafes",
+                    "email": "karima.rafes@bordercloud.com",
+                    "homepage": "http://www.bordercloud.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lib PHP very easy for SPARQL 1.1",
+            "homepage": "https://github.com/BorderCloud/SPARQL",
+            "keywords": [
+                "RDF",
+                "sparql"
+            ],
+            "time": "2017-09-10T12:20:11+00:00"
+        },
         {
             "name": "twig/twig",
             "version": "v1.35.0",
