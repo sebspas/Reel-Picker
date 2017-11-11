@@ -18,14 +18,20 @@ class IMDB {
         $this->timeOut = $timeOut;
         $this->input = $input;
         $this->data = $this->getMovieDetails();
-        $this->data = $this->data['data'];
-        if (isset($this->data['error'])) {
+        if ($this->data == "not found") {
+            // no movie found
             $this->isReady = false;
-            $this->status = $this->data['error']['message'];
         } else {
-            $this->isReady = true;
-            $this->status = 'OK';
+            $this->data = $this->data['data'];
+            if (isset($this->data['error'])) {
+                $this->isReady = false;
+                $this->status = $this->data['error']['message'];
+            } else {
+                $this->isReady = true;
+                $this->status = 'OK';
+            }
         }
+      
     }
 
     private function get_data($url) {
@@ -216,8 +222,13 @@ class IMDB {
             $search_result = $this->get_data($url);
             if ($this->debug)
                 echo "Doing movie details call\n";
-            $this->ImdbId = $search_result['data']['results'][0]['list'][0]['tconst'];
-            $url = $this->getAPIURL("title/" . $search_result['data']['results'][0]['list'][0]['tconst'] . "/maindetails?");
+            if (isset($search_result['data']['results']) && isset($search_result['data']['results'][0]['list'][0]['tconst'])) {
+                $this->ImdbId = $search_result['data']['results'][0]['list'][0]['tconst'];
+                $url = $this->getAPIURL("title/" . $search_result['data']['results'][0]['list'][0]['tconst'] . "/maindetails?");
+            } else {
+                // no data to be returned
+                return 'not found';
+            }           
         }
 
         return $this->get_data($url);

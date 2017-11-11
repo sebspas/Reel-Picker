@@ -1,21 +1,5 @@
 <?php
-
-/*
-Add the name of the TV show or Movie as a string into the IMDB constructor.
-Examples:
-
-Movie
-	Terminator 2: Judgment Day (1991)
-	Terminator 2: Judgment Day 1991
-	Terminator 2: Judgment Day
-	Terminator 2
-	tt0103064
-
-TV Show
-	Archer 2009
-	tt1486217
-*/
-$imdb = new IMDB("Le seigneur des anneaux: La communauté de l'anneau");
+$imdb = new IMDB("le seigneur des anneaux: la communauté de l'anneau");
 if($imdb->isReady){
 
 	$imdb_api = array();
