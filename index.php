@@ -13,6 +13,7 @@ ini_set('display_errors',1);
 
 require_once  ROOT . APP . 'Config.class.php';
 require_once ROOT . APP . 'Bd.class.php';
+require_once ROOT . APP . 'imdbapi.class.php';
 
 // CONFIG de TWIG
 require_once 'vendor/autoload.php'; 
