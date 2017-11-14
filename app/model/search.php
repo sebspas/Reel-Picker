@@ -27,7 +27,7 @@
             WHERE {
                 ?movies rdf:type <http://dbpedia.org/ontology/Film>.
                 ?movies rdfs:label ?film_title.
-                FILTER (CONTAINS (lcase(str(?film_title)), \"". $name ."\") || ?film_title = \"". $name ."\").
+                FILTER REGEX(lcase(str(?film_title)), \"". $name ."\").
                 FILTER langMatches(lang(?film_title),'en').        
             } group by ?film_title
             LIMIT 30

@@ -43,6 +43,10 @@
     margin: 0 auto;
 }
 
+.no-margin {
+    margin: 0 !important;
+}
+
 .style-background {
     background-color: #282828;
 }
