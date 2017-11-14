@@ -2,7 +2,8 @@
     // include the model file
     require_once(Config::$path['model'].'home.php');
 
-    $likedMovies = GetRecommandations(6); // PLACEHOLDER! TODO: Use real liked movies.
+    //$likedMovies = GetRecommandations(6); // PLACEHOLDER! TODO: Use real liked movies.
+    $likedMovies = array();
 
     echo $twig->render('profile.twig', array(
         'connected' => $_SESSION['login'],

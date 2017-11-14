@@ -330,7 +330,7 @@ class BD {
      * @param string $Pass Le mot de passe non hasher
      */
     function addUser($Pseudo,$Pass,$Mail) {
-        $req = self::$db->prepare("INSERT INTO `users`
+        $req = self::$db->prepare("INSERT INTO `user`
             (pseudo, password, email)
              VALUES (?,?,?)");
         $Pass = sha1($Pass);

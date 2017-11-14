@@ -1,6 +1,6 @@
 <?php
     function TryRegister($email, $pseudo, $password, $passwordConfirm) {
-        $BD = new BD('users');
+        $BD = new BD('user');
         $errors = array();
 
         if (empty($pseudo)) {
