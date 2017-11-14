@@ -6,6 +6,8 @@
     // user data of the form, empty by default
     $data = array();
 
+    $errors = array();
+
     // check if the user posts the register form
     if (isset($_POST['register'])) {
         // Try to register
