@@ -28,7 +28,6 @@
     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           media="screen,projection"/>
 
-		  
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -59,11 +58,15 @@
     </div>
 
     {% else %}
-    <nav class="navbar-reel">
-        <div class="nav-wrapper">
-            <a id="logo-text" href="index.php?page=home" "right brand-logo"></a>
-        </div>
-    </nav>
+    <div class="navbar-fixed">
+      <nav class="navbar-reel">
+            <div class="nav-wrapper">
+                <a id="logo-text" href="index.php?page=home" class="left brand-logo"></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">               
+                </ul>                
+            </div>
+      </nav>
+    </div>
     {% endif %}
 
     {% block content %}

@@ -9,9 +9,8 @@
     // check if the user post the login form
     if (isset($_POST['login'])) {
         // check if the user has valid credential
-        if (IsValidUser($_POST['pseudo'], $_POST['password'])) {
+        if (IsValidUser($_POST['pseudo'], $_POST['password']))
             header('Location: index.php?page=home');
-        }
         else 
             $error = "Nom d'utilisateur ou mot de passe incorrect. Merci de reessayer.";
     }

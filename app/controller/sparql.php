@@ -2,7 +2,7 @@
     // include the model file
     require_once(Config::$path['model'].'sparql.php');
 
-    $rows = getMovieDataWithName("Hobbit");
+    $rows = getMovieDataWithName("Sherlock");
 
     $moviesData = getMovieImage($rows["result"]["rows"]);
     //print_r($moviesData);
