@@ -14,8 +14,7 @@
 .side-menu-search {
     background-color: #252525;
     height: 100%;
-    margin-top: 20px;
-    display: inline-block;
+    padding: 20px;
 }
 
 @media only screen and (min-width: 993px) {
@@ -28,9 +27,4 @@
     .side-menu-search {
         position: relative;
     }
-}
-
-.scroll-content {
-    display: inline-block;
-    margin-top: 20px;
 }

@@ -6,6 +6,10 @@
     min-height: 85px;
 }
 
+.navbar-fixed {
+    height: 80px;
+}
+
 .nav-wrapper{
     padding-top: 10px;
 }

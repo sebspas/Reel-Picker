@@ -5,6 +5,7 @@
     $rows = getMovieDataWithName("Sherlock");
 
     $moviesData = getMovieImage($rows["result"]["rows"]);
+    
     //print_r($moviesData);
     echo $twig->render('sparql.twig', array(
         'name' => $_SESSION['pseudo'],

@@ -3,29 +3,15 @@
 use BorderCloud\SPARQL\SparqlClient;
 
 function getMovieDataWithName($name) {
-
     // convert the string into lower case to the sparql
     $name = strtolower($name);
 
     // set the database to ask question 
-    //$endpoint = "http://data.linkedmdb.org/sparql";
     $endpoint = "http://dbpedia.org/sparql";
     $sc = new SparqlClient();
     $sc->setEndpointRead($endpoint);
 
     // the query itself
-    /*$q = "
-        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        prefix fn: <https://www.w3.org/TR/xpath-functions-3/>
-        
-        SELECT ?movieLabel ?date ?runtime ?actorLabel WHERE {
-          ?movie rdfs:label ?movieLabel.
-          ?actors rdfs:label ?actorLabel.
-          ?movie <http://data.linkedmdb.org/resource/movie/actor> ?actors.
-          ?movie <http://data.linkedmdb.org/resource/movie/runtime> ?runtime.
-          ?movie <http://purl.org/dc/terms/date> ?date.
-          ?movie  <http://purl.org/dc/terms/title> \"" . $name . "\".
-        }";*/
     $q = "        
         SELECT DISTINCT ?movies ?film_title ?date
         WHERE {
@@ -63,7 +49,6 @@ function getMovieImage($moviesDataSPARQL) {
             $moviesData[] = $movie;
         } 
     }
-
    
     // sort by year
     foreach ($moviesData as $key => $row) {

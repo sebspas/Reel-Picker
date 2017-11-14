@@ -2,9 +2,14 @@
     require_once(Config::$path['model'].'search.php');
 
     if(empty($_GET['search']))
-        $movies = GetMovies();
-    else
-        $movies = SearchForMovies(explode(" ", $_GET['search']));
+        //$movies = GetMovies();
+        $movies = array();
+    else {
+        ///$movies = SearchForMovies(explode(" ", $_GET['search']));
+        $rows = SearchForMovies($_GET['search']);        
+        $movies = getMovieImage($rows["result"]["rows"]);
+    }
+        
 
     // check if the user post the search form
     if (isset($_POST['search'])) {
