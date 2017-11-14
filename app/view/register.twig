@@ -9,19 +9,19 @@
             <form class="" action="index.php?page=register" method="post">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="email" class="validate" name="email" value="{{request.form.email}}">
+                        <input id="email" type="email" class="validate" name="email" value="{{ data['email'] }}">
                         <label for="email">E-mail Address</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="pseudo" type="text" class="validate" name="username" value="{{request.form.username}}">
+                        <input id="pseudo" type="text" class="validate" name="username" value="{{ data['username'] }}">
                         <label for="pseudo">Username</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" type="password" class="validate" name="password" value="{{request.form.password}}">
+                        <input id="password" type="password" class="validate" name="password" value="{{ data['password'] }}">
                         <label for="password">Password</label>
                     </div>
                 </div>
@@ -35,8 +35,13 @@
                     <input class="btn btn-default" type="submit" name="register" value="Sign Up">
                 </div>
             </form>
-            {% if error %}
-            <p class="error"><strong>Error:</strong> {{ error }} </p>
+            {% if errors %}
+            <p class="error">
+                <strong>Error:</strong>                
+                {% for error in errors %}
+                    {{ error }}<br/>
+                {% endfor %}
+            </p>
             {% endif %}
             <p>Already a member? <a href="index.php?page=login">SIGN IN</a></p>
         </div>
