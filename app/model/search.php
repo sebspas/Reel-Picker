@@ -13,9 +13,12 @@
         $tmp = explode(" ", $string);
 
         $ret = "";
-
+        $cpt = 0;
         foreach ($tmp as $s) {
-            $ret = "(" . $s[0] . "|" . strtoupper($s[0]) . ")" . substr($s, 1) . " ";
+            if ($cpt != 0 )
+                $ret .= " ";
+            $ret .= "(" . $s[0] . "|" . strtoupper($s[0]) . ")" . substr($s, 1);
+            $cpt++;
         }
 
         return $ret;
@@ -39,9 +42,9 @@
                 ?movie rdf:type <http://dbpedia.org/ontology/Film>.
                 ?movie rdfs:label ?title.
                 FILTER REGEX(?title, '" . $name . "').
-                FILTER langMatches(lang(?title),'en').                
+                FILTER (langMatches(lang(?title),'en')).                
             } group by ?title
-            LIMIT 20
+            LIMIT 100
         ";
         
         $rows = $dbpedia->query($q, 'rows');
@@ -64,10 +67,10 @@
         }
        
         // sort by year
-        foreach ($moviesData as $key => $row) {
+        /*foreach ($moviesData as $key => $row) {
             $year[$key]  = $row['year'];
         }
-        array_multisort($year, SORT_DESC, $moviesData);
+        array_multisort($year, SORT_DESC, $moviesData);*/
         return $moviesData;
     }
 ?>    
