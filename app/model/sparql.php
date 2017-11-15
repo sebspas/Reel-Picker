@@ -1,6 +1,6 @@
 <?php
 // to use sparql
-use BorderCloud\SPARQL\SparqlClient;
+//use BorderCloud\SPARQL\SparqlClient;
 
 function getMovieDataWithName($name) {
     // convert the string into lower case to the sparql

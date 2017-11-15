@@ -9,49 +9,52 @@
         return $BD->searchMovies($searchTerms);
     }*/
 
-    // to use sparql
-    use BorderCloud\SPARQL\SparqlClient;
+    function makeRegexFromString($string) {
+        $tmp = explode(" ", $string);
 
-    function SearchForMovies($name) {
-        // convert the string into lower case to the sparql
-        $name = strtolower($name);
+        $ret = "";
 
-        // set the database to ask question 
-        $endpoint = "http://dbpedia.org/sparql";
-        $sc = new SparqlClient();
-        $sc->setEndpointRead($endpoint);
-
-        // the query itself
-        $q = "        
-            SELECT DISTINCT ?movies ?film_title
-            WHERE {
-                ?movies rdf:type <http://dbpedia.org/ontology/Film>.
-                ?movies rdfs:label ?film_title.
-                FILTER REGEX(lcase(str(?film_title)), \"". $name ."\").
-                FILTER langMatches(lang(?film_title),'en').        
-            } group by ?film_title
-            LIMIT 30
-        ";
-        
-        // execute the query on the ontology
-        $rows = $sc->query($q, 'rows');
-        $err = $sc->getErrors();
-        if ($err) {
-            // show the error if there is some
-            print_r($err);
-            throw new Exception(print_r($err, true));
+        foreach ($tmp as $s) {
+            $ret = "(" . $s[0] . "|" . strtoupper($s[0]) . ")" . substr($s, 1) . " ";
         }
 
-        // return the results
+        return $ret;
+    }
+
+    function SearchForMovies($name) {
+        $config = array(
+            /* remote endpoint */
+            'remote_store_endpoint' => 'http://dbpedia.org/sparql'
+        );
+            
+        /* instantiation */
+        $dbpedia = ARC2::getRemoteStore($config);
+    
+        $name = makeRegexFromString($name);
+    
+        //print_r($dbpedia);
+        $q = "
+            SELECT ?title
+            WHERE {
+                ?movie rdf:type <http://dbpedia.org/ontology/Film>.
+                ?movie rdfs:label ?title.
+                FILTER REGEX(?title, '" . $name . "').
+                FILTER langMatches(lang(?title),'en').                
+            } group by ?title
+            LIMIT 20
+        ";
+        
+        $rows = $dbpedia->query($q, 'rows');
+
         return $rows;
     }
 
     function getMovieImage($moviesDataSPARQL) {
         foreach ($moviesDataSPARQL as $dataSPARQL) {
-            $imdb = new IMDB($dataSPARQL['film_title']);
+            $imdb = new IMDB($dataSPARQL['title']);
             $movie = array();
             if($imdb->isReady){
-                $movie['title'] = $dataSPARQL['film_title'];
+                $movie['title'] = $dataSPARQL['title'];
                 $movie['image'] = $imdb->getPoster();
                 $movie['rating'] = $imdb->getRating();
                 $movie['year'] = $imdb->getYear();
