@@ -1,6 +1,6 @@
 {
     "require": {
         "twig/twig": "2.*",
-        "bordercloud/sparql": "*"
+        "semsol/arc2": "^2.3"
     }
 }

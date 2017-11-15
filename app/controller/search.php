@@ -7,7 +7,7 @@
     else {
         ///$movies = SearchForMovies(explode(" ", $_GET['search']));
         $rows = SearchForMovies($_GET['search']);        
-        $movies = getMovieImage($rows["result"]["rows"]);
+        $movies = getMovieImage($rows);
     }
         
 

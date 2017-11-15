@@ -323,9 +323,6 @@ class BD {
      *
      * Ajoute un utilisateur dans la base de donnees a l'aide des infos fournis
      * @param string $Nom Le nom de l'utilisateur
-     * @param string $Nom Le prenom de l'utilisateur
-     * @param int $Age L'age de l'utilisateur
-     * @param int $Tel Le tel de l'utilisateur
      * @param string $Mail L'adresse mail de l'utilisateur
      * @param string $Pass Le mot de passe non hasher
      */
@@ -337,6 +334,50 @@ class BD {
         $req->execute(array($Pseudo,$Pass,$Mail));
         $req->closeCursor();
     } // addUser()
+
+    function addMovie($name, $rating, $desc, $image, $date, $runtime) {
+        $req = self::$db->prepare("INSERT INTO `movie`
+        (name, rating, desc, image, date, runtime)
+         VALUES (?,?,?,?,?,?)");
+        $req->execute(array($name, $rating, $desc, $image, $date, $runtime));
+        $req->closeCursor();
+    }
+
+    function addTag($name) {
+        $req = self::$db->prepare("INSERT INTO `tag`
+        (name)
+         VALUES (?)");
+       
+        $req->execute(array($name));
+        $req->closeCursor();
+    }
+
+    function addUserMovieRating($idUser, $idMovie, $rating) {
+        $req = self::$db->prepare("INSERT INTO `user_movies`
+        (user_id, movie_id, rating)
+         VALUES (?, ?, ?)");
+       
+        $req->execute(array($idUser, $idMovie, $rating));
+        $req->closeCursor();
+    }
+
+    function addUserTag($idUser, $idTag, $rating) {
+        $req = self::$db->prepare("INSERT INTO `user_tags`
+        (user_id, tag_id, rating)
+         VALUES (?, ?, ?)");
+       
+        $req->execute(array($idUser, $idTag, $rating));
+        $req->closeCursor();
+    }
+
+    function addMovieTag($idMovie, $idTag) {
+        $req = self::$db->prepare("INSERT INTO `movie_tags`
+        (movie_id, tag_id)
+         VALUES (?, ?)");
+       
+        $req->execute(array($idMovie, $idTag));
+        $req->closeCursor();
+    }
 
     /**
      * Function update()
