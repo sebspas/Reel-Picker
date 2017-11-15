@@ -34,7 +34,7 @@
     
         //print_r($dbpedia);
         $q = "
-            SELECT ?title
+            SELECT DISTINCT ?movie ?title
             WHERE {
                 ?movie rdf:type <http://dbpedia.org/ontology/Film>.
                 ?movie rdfs:label ?title.
