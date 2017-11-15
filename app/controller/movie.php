@@ -3,7 +3,6 @@
     require_once(Config::$path['model'].'movie.php');
 
     $movieTitle = $_GET['id'];
-
     $movie = GetMovieData($movieTitle);
 
     echo $twig->render('movie.twig', 
