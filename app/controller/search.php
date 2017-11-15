@@ -8,6 +8,7 @@
         ///$movies = SearchForMovies(explode(" ", $_GET['search']));
         $rows = SearchForMovies($_GET['search']); 
         $movies = getMovieImage($rows);
+        $_SESSION['search'] = $_GET['search'];        
     }
         
 

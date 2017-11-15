@@ -44,7 +44,7 @@
                 FILTER REGEX(?title, '" . $name . "').
                 FILTER (langMatches(lang(?title),'en')).                
             } group by ?title
-            LIMIT 100
+            LIMIT 50
         ";
         
         $rows = $dbpedia->query($q, 'rows');
@@ -53,24 +53,55 @@
     }
 
     function getMovieImage($moviesDataSPARQL) {
+
+        $BD = new BD('movie');
+        
         foreach ($moviesDataSPARQL as $dataSPARQL) {
-            $imdb = new IMDB($dataSPARQL['title']);
-            $movie = array();
-            if($imdb->isReady){
+            
+            // we check if the movie is in our database
+            if ($BD->isInDb("name", $dataSPARQL['title'])) {
+                // if true we get our own data
+                $movieInDB = $BD->select("name", $dataSPARQL['title']);
+
                 $movie['title'] = $dataSPARQL['title'];
-                $movie['image'] = $imdb->getPoster();
-                $movie['rating'] = $imdb->getRating();
-                $movie['year'] = $imdb->getYear();
+                $movie['image'] = $movieInDB->image;
+                $movie['rating'] = $movieInDB->rating;
+                $movie['year'] = $movieInDB->date;
     
                 $moviesData[] = $movie;
-            } 
+
+            } else {
+                // we get the data from IMDB
+                $imdb = new IMDB($dataSPARQL['title']);
+                $movie = array();
+                if($imdb->isReady){
+                    $movie['title'] = $dataSPARQL['title'];
+                    $movie['image'] = $imdb->getPoster();                                        
+                    $movie['rating'] = $imdb->getRating();
+                    $movie['year'] = $imdb->getYear();
+                    
+                    // if the movie got a rating we can add it to the result
+                    if (isset($movie['rating']) && $movie['rating'] != "N/A")
+                        $moviesData[] = $movie;
+                } 
+
+                // then we add the movie to our database if the grade is >= 7.0
+                if (isset($movie['rating']) && $movie['rating'] != "N/A" && $movie['rating'] >= 7.0) {
+                    // we get the missing data to add in db
+                    $desc = $imdb->getDescription();
+                    $runtime = $imdb->getRuntime();
+                    // we add the movie to the DB (so next time we don't need to get the data from IMDB)
+                    $BD->addMovie($movie['title'], $movie['rating'], $desc, $movie['image'], $movie['year'], $runtime);
+                }                
+            }            
         }
        
         // sort by year
-        /*foreach ($moviesData as $key => $row) {
+        foreach ($moviesData as $key => $row) {
             $year[$key]  = $row['year'];
+            $rating[$key]  = $row['rating'];
         }
-        array_multisort($year, SORT_DESC, $moviesData);*/
+        array_multisort($year, SORT_DESC, $rating, SORT_DESC, $moviesData);
         return $moviesData;
     }
 ?>    

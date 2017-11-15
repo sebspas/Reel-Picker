@@ -9,6 +9,7 @@
     array(
         'connected' => $_SESSION['login'],
         'page' => $_GET['page'],
-        'movie' => $movie
+        'movie' => $movie,
+        'search' => $_SESSION['search']
     ));
 ?>

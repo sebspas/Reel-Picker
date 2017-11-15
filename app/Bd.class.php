@@ -337,7 +337,7 @@ class BD {
 
     function addMovie($name, $rating, $desc, $image, $date, $runtime) {
         $req = self::$db->prepare("INSERT INTO `movie`
-        (name, rating, desc, image, date, runtime)
+        (name, rating, `desc`, image, `date`, runtime)
          VALUES (?,?,?,?,?,?)");
         $req->execute(array($name, $rating, $desc, $image, $date, $runtime));
         $req->closeCursor();
