@@ -363,10 +363,10 @@ class BD {
 
     function addUserTag($idUser, $idTag, $rating) {
         $req = self::$db->prepare("INSERT INTO `user_tags`
-        (user_id, tag_id, rating)
-         VALUES (?, ?, ?)");
+        (user_id, tag_id, rating, tag_count)
+         VALUES (?, ?, ?, ?)");
        
-        $req->execute(array($idUser, $idTag, $rating));
+        $req->execute(array($idUser, $idTag, $rating, 1));
         $req->closeCursor();
     }
 
@@ -397,6 +397,16 @@ class BD {
 
         $req->closeCursor();
     } // update()
+
+    function updateTwoParam($att,$att_val,$cond_att,$cond_val, $cond_att2, $cond_val2) {
+        
+        $req = self::$db->prepare("UPDATE $this->table SET $att = ? WHERE $cond_att = ? AND $cond_att2 = ?");
+
+        $req->execute(array($att_val,$cond_val, $cond_val2));
+
+        $req->closeCursor();
+    } // update()
+
 
     /**
      * Function inc()

@@ -1,7 +1,7 @@
 <?php
     function GetMovies() {
         $BD = new BD('movie');
-        return $BD->selectAll('title');
+        return $BD->selectAll('rating');
     }
     
     /*function SearchForMovies($searchTerms) {
@@ -59,11 +59,9 @@
         foreach ($moviesDataSPARQL as $dataSPARQL) {
             
             // we check if the movie is in our database
-            if ($BD->isInDb("name", $dataSPARQL['title'])) {
-                // if true we get our own data
-                $movieInDB = $BD->select("name", $dataSPARQL['title']);
-
-                $movie['title'] = $dataSPARQL['title'];
+            if (!empty($movieInDB = $BD->select("name", $dataSPARQL['title']))) {
+                // if true we get our own data 
+                $movie['name'] = $dataSPARQL['title'];
                 $movie['image'] = $movieInDB->image;
                 $movie['rating'] = $movieInDB->rating;
                 $movie['year'] = $movieInDB->date;
@@ -75,7 +73,7 @@
                 $imdb = new IMDB($dataSPARQL['title']);
                 $movie = array();
                 if($imdb->isReady){
-                    $movie['title'] = $dataSPARQL['title'];
+                    $movie['name'] = $dataSPARQL['title'];
                     $movie['image'] = $imdb->getPoster();                                        
                     $movie['rating'] = $imdb->getRating();
                     $movie['year'] = $imdb->getYear();
@@ -91,7 +89,7 @@
                     $desc = $imdb->getDescription();
                     $runtime = $imdb->getRuntime();
                     // we add the movie to the DB (so next time we don't need to get the data from IMDB)
-                    $BD->addMovie($movie['title'], $movie['rating'], $desc, $movie['image'], $movie['year'], $runtime);
+                    $BD->addMovie($movie['name'], $movie['rating'], $desc, $movie['image'], $movie['year'], $runtime);
                 }                
             }            
         }
