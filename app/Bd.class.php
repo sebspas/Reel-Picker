@@ -210,7 +210,7 @@ class BD {
         $req->closeCursor();
 
         return $donnees;
-    } // selectAll()
+    } // selectTop()
 
     function selectAllAsc($orderatt) {
         if (isset($orderatt)) {
@@ -241,7 +241,7 @@ class BD {
      * Recupere tout les tuples de la table sur laquel on effectue les operations,les renvoie dans 
      * un tableau ou chaque case et un tuple
      */
-    function selectMult($cond_att,$cond_val) {
+    function selectMult($cond_att, $cond_val) {
 
         $req = self::$db->prepare("SELECT * FROM $this->table WHERE $cond_att = ?");
 
@@ -291,6 +291,20 @@ class BD {
         $req = self::$db->prepare("SELECT * FROM `tag` WHERE `idtag` IN (SELECT `tag_idtag` FROM `movie_has_tag` WHERE `movie_idmovie` = ?) ORDER BY 'name' ASC");
         
         $req->execute(array($idmovie));
+
+        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
+
+        $req->closeCursor();
+
+        return $donnees;
+    }
+
+
+    function selectPreferredTags($iduser) {
+        $req = self::$db->prepare("SELECT t.name FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC");
+        //$req = self::$db->prepare("SELECT * FROM `tag` WHERE `idtag` IN (SELECT `id`, 'rating' FROM `user_tags` WHERE `iduser` = ?)");
+        
+        $req->execute(array($iduser));
 
         $donnees = $req->fetchAll(PDO::FETCH_OBJ);
 
