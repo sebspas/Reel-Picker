@@ -130,7 +130,7 @@ class BD {
     } // count()
 
 
-    private function selectImpl($query, $values)
+    private function selectImpl($query, $values = NULL)
     {
         $req = self::$db->prepare($query);
         $req->execute($values);
@@ -148,26 +148,17 @@ class BD {
      * @param mixed $cond_val La valeur de la colonne rechercher (ex: Jean)
      */
     function selectAttribut($att_select, $cond_att, $cond_val) {
-
-        $req = self::$db->prepare("SELECT ? FROM $this->table WHERE $cond_att = ?");
-
-        $req->execute(array($att_select, $cond_val));
-        $donnees = $req->fetch(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl(
+            "SELECT ? FROM $this->table WHERE $cond_att = ?",
+            array($att_select, $cond_val)
+        );
     } // select()
 
     function selectAllWithInfo($cond_att, $cond_val, $cond_att_t, $cond_val_t, $contenu_link) {
-
-        $req = self::$db->prepare("SELECT * FROM $this->table WHERE $cond_att = ? OR $cond_att_t = ? ORDER BY $contenu_link DESC");
-
-        $req->execute(array($cond_val, $cond_val_t));
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl(
+            "SELECT * FROM $this->table WHERE $cond_att = ? OR $cond_att_t = ? ORDER BY $contenu_link DESC",
+            array($cond_val, $cond_val_t)
+        );
     } // select()
 
     /**
@@ -178,72 +169,21 @@ class BD {
      */
     function selectAll($orderatt) {
         if (isset($orderatt)) {
-            $req = self::$db->prepare("SELECT * FROM $this->table ORDER BY $orderatt DESC"); 
-            $req->execute();
-
-            $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-            $req->closeCursor();
-
-            return $donnees;
+            $query = "SELECT * FROM $this->table ORDER BY $orderatt DESC"; 
+        } else {
+            $query = "SELECT * FROM $this->table";
         }
-
-        $req = self::$db->prepare("SELECT * FROM $this->table");
-
-        $req->execute();
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl($query);
     } // selectAll()
 
     function selectTop($orderatt, $quantity) {
         if (isset($orderatt)) {
-            $req = self::$db->prepare("SELECT * FROM $this->table ORDER BY $orderatt DESC LIMIT $quantity"); 
-            $req->execute();
-
-            $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-            $req->closeCursor();
-
-            return $donnees;
+            $query = "SELECT * FROM $this->table ORDER BY $orderatt DESC LIMIT $quantity"; 
+        } else {
+            $query = "SELECT * FROM $this->table";
         }
-
-        $req = self::$db->prepare("SELECT * FROM $this->table");
-
-        $req->execute();
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl($query);
     } // selectTop()
-
-    function selectAllAsc($orderatt) {
-        if (isset($orderatt)) {
-            $req = self::$db->prepare("SELECT * FROM $this->table ORDER BY $orderatt ASC"); 
-            $req->execute();
-
-            $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-            $req->closeCursor();
-
-            return $donnees;
-        }
-
-        $req = self::$db->prepare("SELECT * FROM $this->table");
-
-        $req->execute();
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
-    } // selectAll()
 
     /**
      * Function selectMult()
@@ -252,16 +192,7 @@ class BD {
      * un tableau ou chaque case et un tuple
      */
     function selectMult($cond_att, $cond_val) {
-
-        $req = self::$db->prepare("SELECT * FROM $this->table WHERE $cond_att = ?");
-
-        $req->execute(array($cond_val));
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl("SELECT * FROM $this->table WHERE $cond_att = ?", array($cond_val));
     } // selectMult()
 
     /**
@@ -272,42 +203,12 @@ class BD {
      */
     function selectTwoParam($cond_att,$cond_val,$cond_att2,$cond_val2,$orderatt) {
         if (isset($orderatt)) {
-
-            $req = self::$db->prepare("SELECT * FROM $this->table WHERE $cond_att = ? AND $cond_att2 = ? ORDER BY $orderatt ASC");
-
-            $req->execute(array($cond_val,$cond_val2));
-
-            $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-            $req->closeCursor();
-
-            return $donnees;
+            $query = "SELECT * FROM $this->table WHERE $cond_att = ? AND $cond_att2 = ? ORDER BY $orderatt ASC";
+        } else {
+            $query = "SELECT * FROM $this->table WHERE $cond_att = ? AND $cond_att2 = ?";
         }
-
-        $req = self::$db->prepare("SELECT * FROM $this->table WHERE $cond_att = ? AND $cond_att2 = ?");
-
-        $req->execute(array($cond_val,$cond_val2));
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+        return $this->selectImpl($query, array($cond_val,$cond_val2));
     } // selectTwoParam()
-
-
-    function selectMovieTag($idmovie) {
-        
-        $req = self::$db->prepare("SELECT * FROM `tag` WHERE `idtag` IN (SELECT `tag_idtag` FROM `movie_has_tag` WHERE `movie_idmovie` = ?) ORDER BY 'name' ASC");
-        
-        $req->execute(array($idmovie));
-
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
-    }
 
 
     function selectPreferredTags($iduser) {
