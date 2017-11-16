@@ -12,18 +12,28 @@
             $movie['tags'] = $imdb->getGenreArray();
             
             $arr = $imdb->getDirectorArray();
-            $dirArr = array();
-            foreach ($arr as &$dir) {
-                $dirArr[] = $dir['name'];
+            if (empty($arr)){
+                $movie['directors'] = "N/A";
             }
-            $movie['directors'] = trim(implode(", ", $dirArr), ", ");
-
+            else{
+                $dirArr = array();
+                foreach ($arr as &$dir) {
+                    $dirArr[] = $dir['name'];
+                }
+                $movie['directors'] = trim(implode(", ", $dirArr), ", ");
+            }
+            
             $arr = $imdb->getCastArray();
-            $castArr = array();
-            foreach ($arr as &$cast) {
-                $castArr[] = $cast['name'];
+            if (empty($arr)){
+                $movie['cast'] = "N/A";
             }
-            $movie['cast'] = trim(implode(", ", $castArr), ", ");
+            else{
+                $castArr = array();
+                foreach ($arr as &$cast) {
+                    $castArr[] = $cast['name'];
+                }
+                $movie['cast'] = trim(implode(", ", $castArr), ", ");
+            }
             
             // we check if the movie is already in the db
             $BD = new BD('movie');

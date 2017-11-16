@@ -326,7 +326,7 @@ class IMDB {
 
     public function getCastArray() {
         $cast_list = array();
-        if(isset($this->data['cast_summary'])){
+        if(isset($this->data['cast_summary']) && !empty($this->data['cast_summary'])){
             foreach ($this->data['cast_summary'] as $cast) {
                 $img = isset($cast['name']['image']['url']) ? $cast['name']['image']['url'] : 'n/a';
                 $cast['char'] = isset($cast['char']) ? $cast['char'] : 'Unknown';
@@ -338,9 +338,11 @@ class IMDB {
 
     public function getDirectorArray() {
         $dir_array = array();
-        foreach ($this->data['directors_summary'] as $director) {
-            $img = isset($director['name']['image']['url']) ? $director['name']['image']['url'] : 'n/a';
-            $dir_array[] = array('name' => $this->removeAccents($director['name']['name']), 'id' => $director['name']['nconst'], 'url' => 'http://www.imdb.com/name/' . $director['name']['nconst'] . '/', 'image' => $img);
+        if (isset($this->data['directors_summary']) && !empty($this->data['directors_summary'])){
+            foreach ($this->data['directors_summary'] as $director) {
+                $img = isset($director['name']['image']['url']) ? $director['name']['image']['url'] : 'n/a';
+                $dir_array[] = array('name' => $this->removeAccents($director['name']['name']), 'id' => $director['name']['nconst'], 'url' => 'http://www.imdb.com/name/' . $director['name']['nconst'] . '/', 'image' => $img);
+            }
         }
         return $dir_array;
     }
