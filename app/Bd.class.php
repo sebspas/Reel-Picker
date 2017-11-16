@@ -129,6 +129,16 @@ class BD {
         return $donnees->nb;
     } // count()
 
+
+    private function selectImpl($query, $values)
+    {
+        $req = self::$db->prepare($query);
+        $req->execute($values);
+        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return $donnees;
+    }
+
     /**
      * Function selectAttribut()
      *
@@ -301,16 +311,18 @@ class BD {
 
 
     function selectPreferredTags($iduser) {
-        $req = self::$db->prepare("SELECT t.name FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC");
-        //$req = self::$db->prepare("SELECT * FROM `tag` WHERE `idtag` IN (SELECT `id`, 'rating' FROM `user_tags` WHERE `iduser` = ?)");
-        
-        $req->execute(array($iduser));
+        return $this->selectImpl(
+            "SELECT t.name FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
+            array($iduser)
+        );
+    }
 
-        $donnees = $req->fetchAll(PDO::FETCH_OBJ);
-
-        $req->closeCursor();
-
-        return $donnees;
+    function selectRecentRatedMovies($iduser) {
+        // TODO: order by timestamp instead of rating
+        return $this->selectImpl(
+            "SELECT m.image FROM movie m JOIN user_movies um ON m.id = um.movie_id WHERE m.id IN (SELECT um.movie_id FROM user_movies WHERE um.user_id = ?) ORDER BY um.rating DESC",
+            array($iduser)
+        );
     }
 
 
