@@ -25,6 +25,7 @@
   <div class="container">
     <div class="row">
       <div class="center dark-grey col s12 bottom-line">
+        {% for tag in tags %}{{tag.name}}<BR>{% endfor %}
         <p><a class="modal-trigger" href="#unlike">I don't want to watch any of these!</a></p>
       </div>
     </div>

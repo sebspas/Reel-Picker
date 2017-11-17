@@ -4,11 +4,13 @@
 
     //$movies = GetRecommandations(4);
     $movies = array();
+    $tags = getTags();
 
     echo $twig->render('home.twig', array(
         'name' => $_SESSION['pseudo'],
         'connected' => $_SESSION['login'],
         'page' => $_GET['page'],
-        'movies' => $movies
+        'movies' => $movies,
+        'tags' => $tags
         ));
 ?>

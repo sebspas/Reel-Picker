@@ -139,6 +139,15 @@ class BD {
         return $donnees;
     }
 
+    private function selectOneImpl($query, $values = NULL)
+    {
+        $req = self::$db->prepare($query);
+        $req->execute($values);
+        $donnees = $req->fetch(PDO::FETCH_OBJ);
+        $req->closeCursor();
+        return $donnees;
+    }
+
     /**
      * Function selectAttribut()
      *
@@ -214,6 +223,34 @@ class BD {
     function selectPreferredTags($iduser) {
         return $this->selectImpl(
             "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
+            array($iduser)
+        );
+    }
+
+    function selectPreferredTag($iduser) {
+        return $this->selectOneImpl(
+            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
+            array($iduser)
+        );
+    }
+
+    function selectMostPopularTag($iduser) {
+        return $this->selectOneImpl(
+            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count DESC",
+            array($iduser)
+        );
+    }
+
+    function selectEmergingTag($iduser) {
+        return $this->selectOneImpl(
+            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count ASC",
+            array($iduser)
+        );
+    }
+
+    function selectRandomUnratedTag($iduser) {
+        return $this->selectOneImpl(
+            "SELECT t.name FROM tag t WHERE t.id NOT IN (SELECT tag_id FROM user_tags WHERE user_id = ?)",
             array($iduser)
         );
     }
