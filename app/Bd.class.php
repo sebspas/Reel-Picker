@@ -243,7 +243,7 @@ class BD {
 
     function selectRandomUnratedTag($iduser) {
         return $this->selectOneImpl(
-            "SELECT t.name FROM tag t WHERE t.id NOT IN (SELECT tag_id FROM user_tags WHERE user_id = ?)",
+            "SELECT t.name FROM tag t WHERE t.id NOT IN (SELECT ut.tag_id FROM user_tags ut WHERE ut.user_id = ?) ORDER BY RAND()",
             array($iduser)
         );
     }
