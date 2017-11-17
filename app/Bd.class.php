@@ -220,16 +220,9 @@ class BD {
     } // selectTwoParam()
 
 
-    function selectPreferredTags($iduser) {
+    function selectPreferredTags($iduser, $count = 10) {
         return $this->selectImpl(
-            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
-            array($iduser)
-        );
-    }
-
-    function selectPreferredTag($iduser) {
-        return $this->selectOneImpl(
-            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
+            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC LIMIT $count",
             array($iduser)
         );
     }
