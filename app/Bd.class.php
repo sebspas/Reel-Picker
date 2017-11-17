@@ -213,7 +213,7 @@ class BD {
 
     function selectPreferredTags($iduser) {
         return $this->selectImpl(
-            "SELECT t.name FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
+            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC",
             array($iduser)
         );
     }
