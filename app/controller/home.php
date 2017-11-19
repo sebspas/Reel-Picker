@@ -2,11 +2,8 @@
      // include the model file
      require_once(Config::$path['model'].'home.php');
 
-    
-    $movies = array();
     $tags = getTags();
-    $movies = GetRecommandations(4);
-    //print_r($movies);
+    $movies = GetRecommandations($tags);
 
     echo $twig->render('home.twig', array(
         'name' => $_SESSION['pseudo'],

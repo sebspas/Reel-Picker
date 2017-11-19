@@ -19,8 +19,22 @@
         return $tags;
     }
     
-    function GetRecommandations($quantity = 4) {
+    function GetRecommandations($tags, $quantity = 4) {
         $BD = new BD('movie');
-        return $BD->selectTop('rating', $quantity);
+
+        // We get movies from DB with a list of tag
+        $temp = array();
+        foreach ($tags as &$tag) {
+            $temp[] = $BD->selectWithTag($tag->id, 'rating', 1);
+        }
+
+        // We clean/simplify up the array to return
+        $movies = array();
+        foreach ($temp as &$arr) {
+            foreach ($arr as &$data) {
+                $movies[] = $data;
+            }
+        }
+        return $movies;
     }
 ?>

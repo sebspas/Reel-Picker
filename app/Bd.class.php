@@ -195,6 +195,24 @@ class BD {
     } // selectTop()
 
     /**
+     * Function selectWithTag()
+     *
+     * Recupere des tuples de films ayant le tag passe en parametre
+     */
+    function selectWithTag($tag, $orderatt, $quantity = 1) {
+        if (isset($orderatt)) {
+            $query = "SELECT m.name, m.image FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
+                    (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
+                    ORDER BY $orderatt DESC LIMIT $quantity"; 
+        } else {
+            $query = "SELECT m.name, m.image FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
+                    (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?) 
+                    LIMIT $quantity";
+        }
+        return $this->selectImpl($query, array($tag));
+    } // selectWithTag()
+
+    /**
      * Function selectMult()
      *
      * Recupere tout les tuples de la table sur laquel on effectue les operations,les renvoie dans 
@@ -222,28 +240,28 @@ class BD {
 
     function selectPreferredTags($iduser, $count = 10) {
         return $this->selectImpl(
-            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC LIMIT $count",
+            "SELECT t.id, t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.rating DESC LIMIT $count",
             array($iduser)
         );
     }
 
     function selectMostPopularTag($iduser) {
         return $this->selectOneImpl(
-            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count DESC",
+            "SELECT t.id, t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count DESC",
             array($iduser)
         );
     }
 
     function selectEmergingTag($iduser) {
         return $this->selectOneImpl(
-            "SELECT t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count ASC",
+            "SELECT t.id, t.name, ut.rating FROM tag t JOIN user_tags ut ON t.id = ut.tag_id WHERE t.id IN (SELECT ut.tag_id FROM user_tags WHERE ut.user_id = ?) ORDER BY ut.tag_count ASC",
             array($iduser)
         );
     }
 
     function selectRandomUnratedTag($iduser) {
         return $this->selectOneImpl(
-            "SELECT t.name FROM tag t WHERE t.id NOT IN (SELECT ut.tag_id FROM user_tags ut WHERE ut.user_id = ?) ORDER BY RAND()",
+            "SELECT t.id, t.name FROM tag t WHERE t.id NOT IN (SELECT ut.tag_id FROM user_tags ut WHERE ut.user_id = ?) ORDER BY RAND()",
             array($iduser)
         );
     }
