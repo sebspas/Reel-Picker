@@ -3,12 +3,19 @@
     {
         $userId = $_SESSION['idUser'];
         $BD = new BD('tag');
+        $preferred_tags = $BD->selectPreferredTags($userId, 2);
+        $unrated_tag = $BD->selectRandomUnratedTag($userId);
         $tags = array(
-            $BD->selectPreferredTags($userId, 1)[0],
+            $preferred_tags[0],
             $BD->selectMostPopularTag($userId),
             $BD->selectEmergingTag($userId),
-            $BD->selectRandomUnratedTag($userId)
+            $unrated_tag != NULL ? $unrated_tag : $preferred_tags[1]
         );
+
+        if($tags[0] == NULL) {
+            // This means the user has not rated a single movie yet (or there is a really obscure bug).
+        }
+
         return $tags;
     }
     
