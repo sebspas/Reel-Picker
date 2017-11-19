@@ -2,19 +2,21 @@
     MOVIE HOME
 *****/
 body {
-
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
 
 main {
-
     flex: 1 0 auto;
 }
 
-.page-footer {
+h1 {
+    margin: 30px !important;
+}
 
+.page-footer {
+    margin-top: 10px;
     background-color: #282828;
 }
 

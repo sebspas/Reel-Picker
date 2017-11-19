@@ -19,8 +19,8 @@
         return $tags;
     }
     
-    function GetRecommandations($quantity) {
+    function GetRecommandations($quantity = 4) {
         $BD = new BD('movie');
-        return $BD->selectTop('title', $quantity);
+        return $BD->selectTop('rating', $quantity);
     }
 ?>

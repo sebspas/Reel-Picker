@@ -173,7 +173,7 @@ class BD {
     /**
      * Function selectAll()
      *
-     * Recupere tout les tuples de la table sur laquel on effectue les operations,les renvoie dans 
+     * Recupere tous les tuples de la table sur laquel on effectue les operations, les renvoie dans 
      * un tableau ou chaque case et un tuple
      */
     function selectAll($orderatt) {

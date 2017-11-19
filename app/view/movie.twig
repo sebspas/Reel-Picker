@@ -46,7 +46,8 @@
                     <div>{{ movie.desc }}</div>
                 </div>
                 <div class="card-action">
-                    <a href="#" onclick="Materialize.toast('Sad to hear it...', 1000)" ><i class="fa fa-star" aria-hidden="true"></i> {{ movie.rating }}/10</a>
+                <!--onclick="Materialize.toast('Sad to hear it...', 1000)"-->
+                    <a href="#" ><i class="fa fa-star" aria-hidden="true"></i> {{ movie.rating }}/10</a>
                     <div class="right" href="#">
                         <form id="ratingsForm" method="POST" action="app/model/addGradeMovie.php">
                             <input type="hidden" name="movieTitle"  value="{{ movie.title }}" />                     
