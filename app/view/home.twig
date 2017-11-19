@@ -25,8 +25,7 @@
   <div class="container">
     <div class="row">
       <div class="center dark-grey col s12 bottom-line">
-        {% for tag in tags %}{{tag.name}}<BR>{% endfor %}
-        <p><a class="modal-trigger" href="#unlike">I don't want to watch any of these!</a></p>
+        <p><a class="modal-trigger" href="#unlike">Change these suggestions?</a></p>
       </div>
     </div>
   </div>
@@ -35,13 +34,10 @@
   <!-- Modal Structure -->
   <div id="unlike" class="modal bottom-sheet">
     <div class="modal-content collection">
-      <a href="#!" class="collection-item">Alvin</a>
-      <a href="#!" class="collection-item active">Alvin</a>
-      <a href="#!" class="collection-item">Alvin</a>
-      <a href="#!" class="collection-item">Alvin</a>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      {% for tag in tags %}
+      <a href="#!" class="collection-item modal-action modal-close">Show less {{tag.name}}.</a>
+      {% endfor %}
+      <a href="#!" class="collection-item modal-action modal-close">I just want other suggestions.</a>
     </div>
   </div>
 
