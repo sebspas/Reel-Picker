@@ -195,22 +195,33 @@ class BD {
     } // selectTop()
 
     /**
-     * Function selectWithTag()
+     * Function selectMovieIDWithTag()
      *
-     * Recupere des tuples de films ayant le tag passe en parametre
+     * Recupere des ids de films ayant le tag passe en parametre
      */
-    function selectWithTag($tag, $orderatt, $quantity = 1) {
+    function selectMovieIDWithTag($tag, $orderatt, $quantity = 1) {
         if (isset($orderatt)) {
-            $query = "SELECT m.name, m.image FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
-                    (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
+            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
+                    (SELECT DISTINCT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
                     ORDER BY $orderatt DESC LIMIT $quantity"; 
         } else {
-            $query = "SELECT m.name, m.image FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
-                    (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?) 
+            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
+                    (SELECT DISTINCT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?) 
                     LIMIT $quantity";
         }
         return $this->selectImpl($query, array($tag));
-    } // selectWithTag()
+    } // selectMovieIDWithTag()
+
+    /**
+     * Function selectMovieWithId()
+     *
+     * Recupere l'id, le nom et l'image d'un film a partir de son id
+     */
+    function selectMovieWithId($id) {
+        $query = "SELECT m.id, m.name, m.image FROM movie m WHERE m.id = ?";
+        return $this->selectImpl($query, array($id));
+    } // selectMovieWithId()
+
 
     /**
      * Function selectMult()

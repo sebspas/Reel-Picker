@@ -19,22 +19,51 @@
         return $tags;
     }
     
-    function GetRecommandations($tags, $quantity = 4) {
+    function GetRecommandations($tags, $quantity = 4, $movies_per_tag = 5) {
         $BD = new BD('movie');
 
-        // We get movies from DB with a list of tag
+        // We get movies from DB using a list of tag
         $temp = array();
         foreach ($tags as &$tag) {
-            $temp[] = $BD->selectWithTag($tag->id, 'rating', 1);
+            $temp[] = $BD->selectMovieIDWithTag($tag->id, 'rating', $movies_per_tag);
         }
 
-        // We clean/simplify up the array to return
+        // We clean/simplify up the array of movie ids
+        // to get an array of int (ids)
+        $movies_id = array();
+        foreach ($temp as &$arr) {
+            foreach ($arr as &$a) {
+                foreach ($a as &$data) {
+                    $movies_id[] = $data;
+                }
+            }
+        }
+        // We eliminate duplicated ids
+        $movies_id = array_unique($movies_id);
+
+        // We get an array of of movies (id,name,image)
+        // from our array of unique ids
+        $temp = array();
+        foreach ($movies_id as &$id) {
+            $temp[] = $BD->selectMovieWithId($id);
+        }
+
+        // We clean/simplify up the array of movies
+        // to get display-able array
         $movies = array();
         foreach ($temp as &$arr) {
             foreach ($arr as &$data) {
                 $movies[] = $data;
             }
         }
-        return $movies;
+
+        // We fix the max number of movies we want to display
+        $max_index = sizeof($movies);
+        if ($quantity < $max_index){
+            $max_index = $quantity;
+        }
+
+        // We return our final sub-array
+        return array_slice($movies, 0, $max_index);
     }
 ?>

@@ -4,6 +4,7 @@
 
     $tags = getTags();
     $movies = GetRecommandations($tags);
+    //print_r($movies);
 
     echo $twig->render('home.twig', array(
         'name' => $_SESSION['pseudo'],
