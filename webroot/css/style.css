@@ -94,3 +94,12 @@ span.badge.new {
     font-size: 50px;
     margin-left: 40px;*/
 }
+
+@media only screen and (max-width: 500px) {
+    #logo-text {
+        margin-top: 10px;
+        margin-left: 50px;
+        width: 80px;
+        height: 35px;
+    }
+}

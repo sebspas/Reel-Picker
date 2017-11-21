@@ -37,3 +37,18 @@ nav ul li.active a i {
 .side-nav li>a>i {
     color: #fff;
 }
+
+@media only screen and (max-width: 500px) {
+    .navbar-reel {
+        background-color: #282828;
+        min-height: 50px;
+    }
+
+    .navbar-fixed {
+        height: 45px;
+    }
+
+    .nav-wrapper{
+        padding-top: 0;
+    }
+}
