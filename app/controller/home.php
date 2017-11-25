@@ -13,4 +13,6 @@
         'movies' => $movies,
         'tags' => $tags
         ));
+
+    $_SESSION['previous_page'] = 'home';
 ?>

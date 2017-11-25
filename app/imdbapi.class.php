@@ -369,14 +369,19 @@ class IMDB {
 
     //Can set the max amount of generes to return
     public function getGenreArray($max = 0) {
-        if (is_int($max) && $max > 0) {
-            $genre_array = array();
-            for ($i = 0; $i < $max; $i++) {
-                $genre_array[] = $this->data['genres'][$i];
+        if (isset($this->data['genres']) && !empty($this->data['genres'])) {
+            if (is_int($max) && $max > 0) {
+                $genre_array = array();
+                for ($i = 0; $i < $max; $i++) {
+                    $genre_array[] = $this->data['genres'][$i];
+                }
+            } else {
+                $genre_array = $this->data['genres'];
             }
         } else {
-            $genre_array = $this->data['genres'];
+            $genre_array = array();
         }
+       
         return $genre_array;
     }
 

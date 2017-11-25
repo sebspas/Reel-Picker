@@ -13,4 +13,7 @@
         'movies' => $ratedMovies,
         'tags' => $preferred_tags
     ));
+
+    
+    $_SESSION['previous_page'] = 'profile';
 ?>

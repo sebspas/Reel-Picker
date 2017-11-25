@@ -9,7 +9,11 @@
           <div class="card card-movie">
             <a href="index.php?page=movie&id={{ movie.name }}">
               <div class="card-image">
-                <img src="{{ movie.image }}">
+              {% if movie.image is defined and movie.image != "N/A" %}
+                  <img class="movie-image" src="{{ movie.image }}">
+              {% else %}
+                  <img class="movie-image" src="webroot/images/no-image.jpg">
+              {% endif %}
               </div>
             </a>
             <div class="card-content">

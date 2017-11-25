@@ -1,7 +1,7 @@
 <?php
     function GetMovies() {
         $BD = new BD('movie');
-        return $BD->selectAll('rating');
+        return $BD->selectTop('rating', 30);
     }
     
     /*function SearchForMovies($searchTerms) {

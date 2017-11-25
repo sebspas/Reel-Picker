@@ -26,4 +26,6 @@
         'page' => $_GET['page'],
         'movies' => $movies
     ));
+    
+    $_SESSION['previous_page'] = 'search';
 ?>

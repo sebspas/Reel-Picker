@@ -5,6 +5,9 @@
         $BD = new BD('tag');
         $preferred_tags = $BD->selectPreferredTags($userId, 2);
         $unrated_tag = $BD->selectRandomUnratedTag($userId);
+
+        if (empty($preferred_tags)) $preferred_tags[0] = NULL;
+
         $tags = array(
             $preferred_tags[0],
             $BD->selectMostPopularTag($userId),
@@ -25,7 +28,8 @@
         // We get movies from DB using a list of tag
         $temp = array();
         foreach ($tags as &$tag) {
-            $temp[] = $BD->selectMovieIDWithTag($tag->id, 'rating', $movies_per_tag);
+            if ($tag != null)
+                $temp[] = $BD->selectMovieIDWithTag($tag->id, 'rating', $movies_per_tag);
         }
 
         // We clean/simplify up the array of movie ids
