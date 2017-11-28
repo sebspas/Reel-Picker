@@ -5,24 +5,28 @@
 <h1 id="home-title" class="center">What's in for you today !</h1>
   <div class="container">
     <div class="container-movie">
-      {% for movie in movies %}
-          <div class="card card-movie">
-            <a href="index.php?page=movie&id={{ movie.name }}">
-              <div class="card-image">
-              {% if movie.image is defined and movie.image != "N/A" %}
-                  <img class="movie-image" src="{{ movie.image }}">
-              {% else %}
-                  <img class="movie-image" src="webroot/images/no-image.jpg">
-              {% endif %}
+      <div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
+        {% for movie in movies %}
+          <div class="grid-item">
+            <div class="card card-movie">
+              <a href="index.php?page=movie&id={{ movie.name }}">
+                <div class="card-image">
+                {% if movie.image is defined and movie.image != "N/A" %}
+                    <img class="movie-image" src="{{ movie.image }}">
+                {% else %}
+                    <img class="movie-image" src="webroot/images/no-image.jpg">
+                {% endif %}
+                </div>
+              </a>
+              <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{ movie.name }}</span>
+                  <p><a href="index.php?page=movie&id={{ movie.name }}">See More</a></p>
               </div>
-            </a>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">{{ movie.name }}</span>
-                <p><a href="index.php?page=movie&id={{ movie.name }}">See More</a></p>
             </div>
           </div>
-      {% endfor %}
-      </div>
+        {% endfor %}
+      </div>  
+    </div>
   </div>
 </main>
 
