@@ -429,6 +429,10 @@ class IMDB {
         return 'N/A';
     }
 
+    public function getNumVotes() {
+        return isset($this->data['num_votes']) ? $this->data['num_votes'] : 'N/A';
+    }
+
     public function getRating() {
         return isset($this->data['rating']) ? number_format($this->data['rating'], 1) : 'N/A';
     }

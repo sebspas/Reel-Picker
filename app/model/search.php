@@ -65,6 +65,7 @@
                 $movie['image'] = $movieInDB->image;
                 $movie['rating'] = $movieInDB->rating;
                 $movie['year'] = $movieInDB->date;
+                $movie['num_votes'] = $movieInDB->num_votes;
     
                 $moviesData[] = $movie;
 
@@ -77,9 +78,11 @@
                     $movie['image'] = $imdb->getPoster();                                        
                     $movie['rating'] = $imdb->getRating();
                     $movie['year'] = $imdb->getYear();
+                    $movie['num_votes'] = $imdb->getNumVotes();
                     
                     // if the movie got a rating we can add it to the result
-                    if (isset($movie['rating']) && $movie['rating'] != "N/A")
+                    // and the number of votes is superior to 250
+                    if (isset($movie['rating']) && $movie['rating'] != "N/A" && $movie['num_votes'] != "N/A" && $movie['num_votes'] > 250)
                         $moviesData[] = $movie;
                 } 
 
@@ -89,7 +92,7 @@
                     $desc = $imdb->getDescription();
                     $runtime = $imdb->getRuntime();
                     // we add the movie to the DB (so next time we don't need to get the data from IMDB)
-                    $BD->addMovie($movie['name'], $movie['rating'], $desc, $movie['image'], $movie['year'], $runtime);
+                    $BD->addMovie($movie['name'], $movie['rating'], $desc, $movie['image'], $movie['year'], $runtime, $movie['num_votes']);
                 }                
             }            
         }
@@ -98,8 +101,9 @@
         foreach ($moviesData as $key => $row) {
             $year[$key]  = $row['year'];
             $rating[$key]  = $row['rating'];
+            $nbvotes[$key] = $row['num_votes'];
         }
-        array_multisort($year, SORT_DESC, $rating, SORT_DESC, $moviesData);
+        array_multisort($year, SORT_DESC, $rating, SORT_DESC, $nbvotes, SORT_DESC, $moviesData);
         return $moviesData;
     }
 ?>    
