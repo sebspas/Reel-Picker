@@ -187,7 +187,7 @@ class BD {
 
     function selectTop($orderatt, $quantity) {
         if (isset($orderatt)) {
-            $query = "SELECT * FROM $this->table ORDER BY $orderatt DESC, num_votes DESC, `date` DESC LIMIT $quantity"; 
+            $query = "SELECT * FROM $this->table ORDER BY $orderatt DESC, num_votes DESC, year DESC LIMIT $quantity"; 
         } else {
             $query = "SELECT * FROM $this->table";
         }
@@ -323,7 +323,7 @@ class BD {
 
     function addMovie($name, $rating, $desc, $image, $date, $runtime, $num_votes) {
         $req = self::$db->prepare("INSERT INTO `movie`
-        (name, rating, `desc`, image, `date`, runtime, num_votes)
+        (name, rating, `desc`, image, year, runtime, num_votes)
          VALUES (?,?,?,?,?,?,?)");
         $req->execute(array($name, $rating, $desc, $image, $date, $runtime,$num_votes));
         $req->closeCursor();

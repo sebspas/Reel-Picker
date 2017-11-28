@@ -30,8 +30,7 @@ class IMDB {
                 $this->isReady = true;
                 $this->status = 'OK';
             }
-        }
-      
+        }      
     }
 
     private function get_data($url) {

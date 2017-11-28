@@ -10,19 +10,19 @@
             </div>
         </form>
 
-        <h4>Filters</h4>
+        <h4>Sorting</h4>
             <ul class="collapsible" data-collapsible="expandable">
                 <li>
                     <div class="collapsible-header"><i class="material-icons">live_tv</i>Genre</div>
                     <div class="collapsible-body">
                         <span>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="genre1"/>
-                                    <label for="genre1">Choice</label>
+                                <p id="sort-by-name">
+                                    <input type="checkbox" class="filled-in" />
+                                    <label for="genre1">Title</label>
                                 </p>
                                 <p>
                                     <input type="checkbox" class="filled-in" id="genre2"/>
-                                    <label for="genre2">Choice</label>
+                                    <label for="genre2">Rating</label>
                                 </p>
                                 <p>
                                     <input type="checkbox" class="filled-in" id="genre3"/>
@@ -84,7 +84,7 @@
         <div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
             {% if movies %}
                 {% for movie in movies %}
-                <div class="grid-item">
+                <div class="grid-item" data-title="{{ movie.name }}" data-date-created="{{ movie.year }}">
                     <div class="card card-movie">
                         <div class="card-image">
                             {% if movie.image is defined and movie.image != "N/A" %}

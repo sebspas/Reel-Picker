@@ -10,6 +10,7 @@
             $movie['year'] = $imdb->getYear();
             $movie['desc'] = $imdb->getDescription();
             $movie['tags'] = $imdb->getGenreArray();
+            $movie['num_votes'] = $imdb->getNumVotes();
             
             $arr = $imdb->getDirectorArray();
             if (empty($arr)){
@@ -39,7 +40,7 @@
             $BD = new BD('movie');
             if (empty($BD->select("name", $movie['title']))) {
                 // if the movie is not there we add it
-                $BD->addMovie($movie['title'], $movie['rating'], $movie['desc'], $movie['image'], $movie['year'], $movie['runtime']);
+                $BD->addMovie($movie['title'], $movie['rating'], $movie['desc'], $movie['image'], $movie['year'], $movie['runtime'], $movie['num_votes']);
             }
             
             // we get the movie id from the db
