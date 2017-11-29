@@ -202,18 +202,18 @@ class BD {
      */
     function selectMovieIDWithTag($tag, $iduser, $orderatt, $quantity) {
         if (isset($orderatt)) {
-            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id 
+            $query = "SELECT m.id FROM movie m 
                         WHERE m.id NOT IN 
                             (SELECT um.movie_id FROM user_movies um WHERE um.user_id = ?)
                         AND m.id IN 
-                            (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
+                            (SELECT mt2.movie_id FROM movie_tags mt2 WHERE mt2.tag_id = ?)
                     ORDER BY $orderatt DESC LIMIT $quantity"; 
         } else {
-            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id 
+            $query = "SELECT m.id FROM movie m 
                         WHERE m.id NOT IN 
                             (SELECT um.movie_id FROM user_movies um WHERE um.user_id = ?)
                         AND m.id IN 
-                            (SELECT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
+                            (SELECT mt2.movie_id FROM movie_tags mt2 WHERE mt2.tag_id = ?)
                     LIMIT $quantity";
         }
         return $this->selectImpl($query, array($iduser, $tag));
