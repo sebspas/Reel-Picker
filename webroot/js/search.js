@@ -47,6 +47,7 @@ $(document).ready(function(){
 
     $( "#sort-by-rating" ).click(function() {        
         var options = {
+            reverse: true,
             by: sortByRating,
         };
         
