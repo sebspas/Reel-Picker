@@ -55,6 +55,7 @@
     function getMovieImage($moviesDataSPARQL) {
 
         $BD = new BD('movie');
+        $moviesData = array();
         
         foreach ($moviesDataSPARQL as $dataSPARQL) {
             
@@ -98,12 +99,15 @@
         }
        
         // sort by year
-        foreach ($moviesData as $key => $row) {
-            $year[$key]  = $row['year'];
-            $rating[$key]  = $row['rating'];
-            $nbvotes[$key] = $row['num_votes'];
+        if (!empty($moviesData)) {
+            foreach ($moviesData as $key => $row) {
+                $year[$key]  = $row['year'];
+                $rating[$key]  = $row['rating'];
+                $nbvotes[$key] = $row['num_votes'];
+            }
+            array_multisort($year, SORT_DESC, $rating, SORT_DESC, $nbvotes, SORT_DESC, $moviesData);
         }
-        array_multisort($year, SORT_DESC, $rating, SORT_DESC, $nbvotes, SORT_DESC, $moviesData);
+      
         return $moviesData;
     }
 ?>    
