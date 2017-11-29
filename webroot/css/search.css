@@ -17,6 +17,10 @@
     padding: 20px;
 }
 
+.collapsible-body .btn a {
+    color: white;
+}
+
 @media only screen and (min-width: 993px) {
     .side-menu-search {
         position: fixed;
