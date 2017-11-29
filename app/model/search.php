@@ -64,7 +64,7 @@
                 $movie['name'] = $dataSPARQL['title'];
                 $movie['image'] = $movieInDB->image;
                 $movie['rating'] = $movieInDB->rating;
-                $movie['year'] = $movieInDB->date;
+                $movie['year'] = $movieInDB->year;
                 $movie['num_votes'] = $movieInDB->num_votes;
     
                 $moviesData[] = $movie;
