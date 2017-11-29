@@ -26,7 +26,7 @@
         $userId = $_SESSION['idUser'];
         $BD = new BD('movie');
 
-        print_r($tags);
+        //print_r($tags);
 
         // We get movies from DB using a list of tag
         $temp = array();
@@ -50,7 +50,7 @@
 
         // We eliminate duplicated ids
         $movies_id = array_unique($movies_id);
-        print_r($movies_id);
+        //print_r($movies_id);
 
         // We get an array of of movies (id,name,image)
         // from our array of unique ids
