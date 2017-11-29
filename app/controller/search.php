@@ -2,13 +2,13 @@
     require_once(Config::$path['model'].'search.php');
 
     if(empty($_GET['search'])) {
-        $movies = GetMovies();
+        $rows = GetMovies();
         $_SESSION['search'] = " ";
     }
     else {
         ///$movies = SearchForMovies(explode(" ", $_GET['search']));
         $rows = SearchForMovies($_GET['search']); 
-        $movies = getMovieImage($rows);
+        //$movies = getMovieImage($rows);
         $_SESSION['search'] = $_GET['search'];        
     }
         
@@ -24,7 +24,8 @@
     array(
         'connected' => $_SESSION['login'],
         'page' => $_GET['page'],
-        'movies' => $movies
+        'rows' => $rows
+        //'movies' => $movies
     ));
     
     $_SESSION['previous_page'] = 'search';

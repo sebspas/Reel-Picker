@@ -1,7 +1,7 @@
 <?php
     function GetMovies() {
         $BD = new BD('movie');
-        return $BD->selectTop('rating', 30);
+        return $BD->selectTop('rating', 60);
     }
     
     /*function SearchForMovies($searchTerms) {
@@ -44,7 +44,7 @@
                 FILTER REGEX(?title, '" . $name . "').
                 FILTER (langMatches(lang(?title),'en')).                
             } group by ?title
-            LIMIT 50
+            LIMIT 100
         ";
         
         $rows = $dbpedia->query($q, 'rows');
@@ -55,8 +55,8 @@
     function getMovieImage($moviesDataSPARQL) {
 
         $BD = new BD('movie');
-        $moviesData = array();
         
+        $moviesData = array();
         foreach ($moviesDataSPARQL as $dataSPARQL) {
             
             // we check if the movie is in our database
@@ -72,8 +72,7 @@
 
             } else {
                 // we get the data from IMDB
-                $imdb = new IMDB($dataSPARQL['title']);
-                $movie = array();
+                $imdb = new IMDB($dataSPARQL['title']);                
                 if($imdb->isReady){
                     $movie['name'] = $dataSPARQL['title'];
                     $movie['image'] = $imdb->getPoster();                                        

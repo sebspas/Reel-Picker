@@ -1,10 +1,111 @@
 $(document).ready(function(){
-    var Shuffle = window.Shuffle;
-    var element = document.querySelector('.grid');
 
-    var shuffleInstance = new Shuffle(element, {
+    var Shuffle = window.Shuffle;
+    var elementGrid = document.querySelector('.grid');
+
+    var sort_filter = "any";
+
+    var shuffleInstance = new Shuffle(elementGrid, {
         itemSelector: '.grid-item'
     });
+
+    // for all the movie pass as parameter
+    // we call the ajax script to add the data to the page
+    arrayMovies.forEach(element => {
+        if (typeof element.title == 'undefined' || title == '') {
+            title_name = element.name;
+        } else {
+            title_name = element.title;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: 'app/LoadMovie.php',
+            data: { title : title_name},
+            success: function(data) {
+                if (data != null && data != "null") {
+                    if (data.image != "N/A") {
+                        var movie_image = data.image;
+                    } else {
+                        var movie_image = "webroot/images/no-image.jpg";
+                    }
+                    
+                    var item =  $("<div>").attr({
+                        class: 'grid-item',
+                        'data-title': data.name,
+                        'data-date-created': data.year,
+                        'data-runtime': data.runtime,
+                        'data-rating': data.rating
+                    }
+                    ).append(
+                        $("<div>").attr({
+                            class: 'card card-movie'
+                        }).append(
+                            $("<div>").attr({
+                                class: 'card-image'
+                            }).append(
+                                $("<img>").attr({ src: movie_image })
+                            ), 
+                            $("<div>").attr({
+                                class: 'card-content'
+                                }).append(
+                                    $("<span>").attr({
+                                        class: 'card-title activator grey-text text-darken-4'
+                                    }).html(data.name),
+                                    $("<p>").append(
+                                        $("<a>").attr({
+                                            href: 'index.php?page=movie&id=' + data.name
+                                        }).html("See More")
+                                    )
+                                )
+                        )
+                    );
+ 
+                    $(".grid").append(
+                        item
+                    );
+
+                    shuffleInstance.add(item);
+                    shuffleInstance.update();
+                    sortView();
+                }               
+            }
+        });
+    });
+
+
+    
+    function sortView() {
+        var option;
+        switch (sort_filter) {
+            case "any":
+                options = {
+                };
+                break;
+            case "rating":
+                options = {
+                    reverse: true,
+                    by: sortByRating,
+                };
+                break;
+            case "date":
+                options = {
+                    reverse: true,
+                    by: sortByDate,
+                };
+                break;
+            case "name":
+                options = {
+                    by: sortByTitle,
+                };
+                break;
+            default:
+                break;
+        }
+
+        shuffleInstance.sort(options);
+    }
+
 
     function sortByTitle(element) {
         return element.getAttribute('data-title').toLowerCase();
@@ -19,40 +120,23 @@ $(document).ready(function(){
     }
 
 
-    $( "#sort-by-name" ).click(function() {
-        var options = {
-            by: sortByTitle,
-        };
-        
-        shuffleInstance.sort(options);
-      });
-
-
-    $( "#sort-by-date" ).click(function() {        
-        var options = {
-            reverse: true,
-            by: sortByDate,
-        };
-        
-        shuffleInstance.sort(options);
-    });
-
-
     $( "#sort-by-any" ).click(function() {        
-        var options = {
-        };
-        
-        shuffleInstance.sort(options);
+        sort_filter = "any";
+        sortView();
+    });
+    $( "#sort-by-name" ).click(function() {
+        sort_filter = "name";
+        sortView();
+    });
+    $( "#sort-by-date" ).click(function() {        
+        sort_filter = "date";
+        sortView();
+    });
+    $( "#sort-by-rating" ).click(function() {        
+        sort_filter = "rating";
+        sortView();
     });
 
-    $( "#sort-by-rating" ).click(function() {        
-        var options = {
-            reverse: true,
-            by: sortByRating,
-        };
-        
-        shuffleInstance.sort(options);
-    });
 
     /*
         FILTER SECTION
@@ -103,11 +187,10 @@ $(document).ready(function(){
 
     // Onclick Listener
     $( "#filter-rating" ).click(function() {
-        minRating = slider_rating.noUiSlider.get();
+        minRating = parseFloat(slider_rating.noUiSlider.get());
         $('#rating-value').html(minRating);
         shuffleInstance.filter(function (element) {
             return checkFilter(element);
-            //return element.getAttribute('data-rating') >= minRating;
         });
     });
 
@@ -116,7 +199,6 @@ $(document).ready(function(){
         $('#runtime-value').html(maxRuntime);
         shuffleInstance.filter(function (element) {
             return checkFilter(element);
-            //return  parseInt(element.getAttribute('data-runtime')) <= maxRuntime;
         });
     });
 
@@ -125,13 +207,11 @@ $(document).ready(function(){
         $('#release-value').html(minRelease);
         shuffleInstance.filter(function (element) {
             return checkFilter(element);
-            //return  parseInt(element.getAttribute('data-date-created')) >= minRelease;
         });
     });
 
-
     function checkFilter(element) {
-        return element.getAttribute('data-rating') >= minRating 
+        return  parseFloat(element.getAttribute('data-rating')) >= minRating 
         && parseInt(element.getAttribute('data-runtime')) <= maxRuntime
         && parseInt(element.getAttribute('data-date-created')) >= minRelease;
     }

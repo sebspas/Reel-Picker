@@ -1,6 +1,11 @@
 {% extends 'template.twig' %}
 
 {% block content %}
+
+<script type="text/javascript">
+    var arrayMovies = {{ rows|json_encode|raw }};
+</script>
+
 <div class="row no-margin">
     <div class="left col s12 m3 side-menu-search">
         <form class="" method="post">

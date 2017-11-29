@@ -11,9 +11,9 @@ class IMDB {
     // Please set this to 'TRUE' for debugging purposes only.
     private $debug = false;
 
-    //Define  the language (en_US, fr_FR, de_DE, es_ES, it_IT, pt_PT)
+    // Define  the language (en_US, fr_FR, de_DE, es_ES, it_IT, pt_PT)
     // if there is no version in desired language the retuened data will be in english as fallback)
-    public function __construct($input, $language = 'en_US', $timeOut = 5) {
+    public function __construct($input, $language = 'en_US', $timeOut = 1) {
         $this->language = $language;
         $this->timeOut = $timeOut;
         $this->input = $input;
