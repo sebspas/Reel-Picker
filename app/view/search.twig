@@ -13,70 +13,46 @@
         <h4>Sorting</h4>
             <ul class="collapsible" data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">live_tv</i>Genre</div>
+                    <div class="collapsible-header"><i class="material-icons">live_tv</i>Sort</div>
                     <div class="collapsible-body">
-                        <span>
-                                <p id="sort-by-name">
-                                    <input type="checkbox" class="filled-in" />
-                                    <label for="genre1">Title</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="genre2"/>
-                                    <label for="genre2">Rating</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="genre3"/>
-                                    <label for="genre3">Choice</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="genre4"/>
-                                    <label for="genre4">Choice</label>
-                                </p>
-                        </span>
+                        <p>
+                            <input name="group1" type="radio" id="sort-by-any" />
+                            <label for="sort-by-any">Normal</label>
+                        </p>
+                        <p>
+                            <input name="group1" type="radio" id="sort-by-name" />
+                            <label for="sort-by-name">Title</label>
+                        </p>
+                        <p>
+                            <input class="with-gap" name="group1" type="radio" id="sort-by-rating"  />
+                            <label for="sort-by-rating">Rating</label>
+                        </p>
+                        <p>
+                            <input name="group1" type="radio" id="sort-by-date"/>
+                            <label for="sort-by-date">Release Date</label>
+                        </p>                      
                     </div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">star</i>Rating</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body">
+                        <p>Minimum grade <span id="rating-value">0</span></p>
+                        <div class="range-field" id="filter-rating"></div>
+                    </div>
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">av_timer</i>Running Time</div>
                     <div class="collapsible-body">
-                        <!--span>
-                            <div id="slider-duration"></div>
-                        </span-->
-                        <div class="range-field">
-                            <input type="range" id="test5" min="0" max="300" />
-                            Choose the maximum duration (minutes) of the movie.
-                        </div>
+                        <p>Maximum runtime <span id="runtime-value">0</span></p>
+                        <div class="range-field" id="filter-runtime"></div>
                     </div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">place</i>Nationality</div>
-                    <div class="collapsible-body">
-                        <span>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="nat1"/>
-                                    <label for="nat1">Choice</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="nat2"/>
-                                    <label for="nat2">Choice</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="nat3"/>
-                                    <label for="nat3">Choice</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" class="filled-in" id="nat4"/>
-                                    <label for="nat4">Choice</label>
-                                </p>
-                        </span>
-                    </div>
-                </li>
+                </li>                
                 <li>
                     <div class="collapsible-header"><i class="material-icons">date_range</i>Release Year</div>
-                    <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    <div class="collapsible-body">
+                        <p>Minimum release year <span id="release-value">0</span></p>
+                        <div class="range-field" id="filter-release"></div>
+                    </div>
                 </li>
             </ul>
     </div>
@@ -84,7 +60,7 @@
         <div class="grid" data-masonry='{ "itemSelector": ".grid-item"}'>
             {% if movies %}
                 {% for movie in movies %}
-                <div class="grid-item" data-title="{{ movie.name }}" data-date-created="{{ movie.year }}">
+                <div class="grid-item" data-title="{{ movie.name }}" data-date-created="{{ movie.year }}" data-runtime="{{ movie.runtime }}" data-rating="{{ movie.rating }}">
                     <div class="card card-movie">
                         <div class="card-image">
                             {% if movie.image is defined and movie.image != "N/A" %}
