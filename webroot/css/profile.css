@@ -21,9 +21,9 @@ img.avatar {
 }
 
 i.star-full {
-    color: #FC0 !important;
+    color: #FC0;
 }
 
 i.star-empty {
-    color: #09F !important;
+    color: #666;
 }
