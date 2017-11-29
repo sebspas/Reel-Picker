@@ -198,18 +198,25 @@ class BD {
      * Function selectMovieIDWithTag()
      *
      * Recupere des ids de films ayant le tag passe en parametre
+     * et qui n'apparaissent pas parmis les films que l'user a déjà noté
      */
-    function selectMovieIDWithTag($tag, $orderatt, $quantity = 1) {
+    function selectMovieIDWithTag($tag, $iduser, $orderatt, $quantity) {
         if (isset($orderatt)) {
-            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
-                    (SELECT DISTINCT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?)
+            $query = "SELECT m.id FROM movie m 
+                        WHERE m.id NOT IN 
+                            (SELECT um.movie_id FROM user_movies um WHERE um.user_id = ?)
+                        AND m.id IN 
+                            (SELECT mt2.movie_id FROM movie_tags mt2 WHERE mt2.tag_id = ?)
                     ORDER BY $orderatt DESC LIMIT $quantity"; 
         } else {
-            $query = "SELECT m.id FROM movie m JOIN movie_tags mt ON m.id = mt.movie_id WHERE m.id IN 
-                    (SELECT DISTINCT mt.movie_id FROM movie_tags WHERE mt.tag_id = ?) 
+            $query = "SELECT m.id FROM movie m 
+                        WHERE m.id NOT IN 
+                            (SELECT um.movie_id FROM user_movies um WHERE um.user_id = ?)
+                        AND m.id IN 
+                            (SELECT mt2.movie_id FROM movie_tags mt2 WHERE mt2.tag_id = ?)
                     LIMIT $quantity";
         }
-        return $this->selectImpl($query, array($tag));
+        return $this->selectImpl($query, array($iduser, $tag));
     } // selectMovieIDWithTag()
 
     /**

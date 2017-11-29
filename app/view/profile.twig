@@ -21,15 +21,26 @@
         <div class="col s12 m8 card blue-grey darken-1 low">
             <h4 class="style-blue">Liked Movies</h4>
             <div class="divider"></div>
-            <div>
-                <ul>
+            <table>
+                <!--<thead>
+                    <tr>
+                        <th>Rating</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>-->
+                <tbody>
                 {% for movie in movies %}
-                    <li>{% for i in 0..4 %}
-                    {% if i < movie.rating  %}<i class="fa fa-star star-full">{% else %}<i class="fa fa-star star-empty">{% endif %}</i>{% endfor %}
-                    <a href="index.php?page=movie&id={{ movie.name }}">{{movie.name}}</a>
+                    <tr>
+                        <td>
+                            {% for i in 0..4 %}{% if i < movie.rating  %}<i class="fa fa-star star-full">{% else %}<i class="fa fa-star star-empty">{% endif %}</i>{% endfor %}
+                        </td>
+                        <td>
+                            <a href="index.php?page=movie&id={{ movie.name }}">{{movie.name}}</a>
+                        </td>
+                    </tr>
                 {% endfor %}
-                </ul>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

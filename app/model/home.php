@@ -22,15 +22,16 @@
         return $tags;
     }
     
-    function GetRecommandations($tags, $quantity = 4, $movies_per_tag = 5) {
+    function GetRecommandations($tags, $quantity = 4, $movies_per_tag = 100) {
+        $userId = $_SESSION['idUser'];
         $BD = new BD('movie');
 
         // We get movies from DB using a list of tag
         $temp = array();
         foreach ($tags as &$tag) {
             if ($tag != null)
-                $temp[] = $BD->selectMovieIDWithTag($tag->id, 'rating', $movies_per_tag);
-        }
+                $temp[] = $BD->selectMovieIDWithTag($tag->id, $userId, 'rating', $movies_per_tag);
+            }
 
         // We clean/simplify up the array of movie ids
         // to get an array of int (ids)
@@ -42,6 +43,7 @@
                 }
             }
         }
+
         // We eliminate duplicated ids
         $movies_id = array_unique($movies_id);
 
