@@ -287,7 +287,7 @@ class BD {
     function selectRecentRatedMovies($iduser) {
         // TODO: order by timestamp instead of rating
         return $this->selectImpl(
-            "SELECT m.image, m.name FROM movie m JOIN user_movies um ON m.id = um.movie_id WHERE m.id IN (SELECT um.movie_id FROM user_movies WHERE um.user_id = ?) ORDER BY um.rating DESC",
+            "SELECT um.rating, m.name FROM movie m JOIN user_movies um ON m.id = um.movie_id WHERE m.id IN (SELECT um.movie_id FROM user_movies WHERE um.user_id = ?) ORDER BY um.rating DESC",
             array($iduser)
         );
     }
