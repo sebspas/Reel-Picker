@@ -2,7 +2,7 @@
     NAVBAR
 *****/
 .navbar-reel {
-    background-color: #282828;
+    background-color: #000;
     min-height: 85px;
 }
 
@@ -27,7 +27,7 @@ nav ul li.active a i {
 }
 
 .side-nav {
-    background-color: #282828; 
+    background-color: #000; 
 }
 
 .side-nav li>a {
@@ -40,7 +40,7 @@ nav ul li.active a i {
 
 @media only screen and (max-width: 992px) {
     .navbar-reel {
-        background-color: #282828;
+        background-color: #000;
         min-height: 50px;
     }
 
