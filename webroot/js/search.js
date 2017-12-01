@@ -12,7 +12,8 @@ $(document).ready(function(){
     // for all the movie pass as parameter
     // we call the ajax script to add the data to the page
     arrayMovies.forEach(element => {
-        if (typeof element.title == 'undefined' || title == '') {
+        
+        if (typeof element.title == 'undefined' || element.title == '') {
             title_name = element.name;
         } else {
             title_name = element.title;
